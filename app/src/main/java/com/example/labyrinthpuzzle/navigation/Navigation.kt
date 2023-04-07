@@ -9,9 +9,13 @@ import com.example.labyrinthpuzzle.screens.*
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
-        composable(route = Screen.MainScreen.route){
+    NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
+        composable(route = Screen.HomeScreen.route){
             HomeScreen(navController = navController)
+        }
+
+        composable(route = Screen.PuzzleScreen.route){
+            EightTilePuzzleScreen(navController = navController)
         }
     }
 }
