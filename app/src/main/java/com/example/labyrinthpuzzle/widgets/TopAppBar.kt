@@ -10,24 +10,43 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SimpleTopAppBar(arrowBackClicked: () -> Unit = {}, content: @Composable () -> Unit){
-    TopAppBar(elevation = 3.dp) {
-        Row {
-            Icon(imageVector = Icons.Default.ArrowBack,
+fun SimpleTopAppBar(
+    arrowBackClicked: () -> Unit = {},
+    menuContent: @Composable () -> Unit = {},
+    content: @Composable () -> Unit
+) {
+    var showMenu by remember { mutableStateOf(false) }
+
+    TopAppBar(
+        elevation = 3.dp,
+        title = { content() },
+        navigationIcon = {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Arrow back",
-                modifier = Modifier.clickable {
-                    arrowBackClicked()
-                }
+                modifier = Modifier.clickable { arrowBackClicked() }
             )
-
-            Spacer(modifier = Modifier.width(20.dp))
-
-            content()
+        },
+        actions = {
+            IconButton(onClick = { showMenu = !showMenu }) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = "More",
+                    tint = Color.White
+                )
+            }
+            DropdownMenu(
+                expanded = showMenu,
+                onDismissRequest = { showMenu = false }
+            ) {
+                menuContent()
+            }
         }
-    }
+    )
 }
 
 @Composable

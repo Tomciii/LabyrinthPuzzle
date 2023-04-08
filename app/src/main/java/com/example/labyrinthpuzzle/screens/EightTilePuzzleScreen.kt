@@ -18,14 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.models.getEightTiles
-import com.example.labyrinthpuzzle.widgets.HomeTopAppBar
+import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
 import java.lang.Math.abs
 
 @Composable
 fun EightTilePuzzleScreen(navController: NavController = rememberNavController()){
     Surface{
-        HomeTopAppBar(title = "Eight Tiles Puzzle"){
-
+        SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
+            Text(text="Eight Tiles Puzzle")
         }
         EightTileScreen(getEightTiles(0))
     }
