@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -27,12 +28,12 @@ fun EightTilePuzzleScreen(navController: NavController = rememberNavController()
         SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
             Text(text="Eight Tiles Puzzle")
         }
-        EightTileScreen(getEightTiles(0))
+        EightTileScreen(getEightTiles(0), navController)
     }
 }
 
 @Composable
-fun EightTileScreen(eightTile: Array<Array<Int>>) {
+fun EightTileScreen(eightTile: Array<Array<Int>>, navController: NavController) {
     var emptyTilePosition by remember { mutableStateOf(0 to 0) }
     var tiles by remember { mutableStateOf(eightTile) }
     var selectedTile by remember { mutableStateOf(-1 to -1) }
@@ -73,7 +74,7 @@ fun EightTileScreen(eightTile: Array<Array<Int>>) {
                             val isSelectedTile = selectedTile == position
                             val backgroundColor = if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Color.LightGray
                             val isAdjacentToEmptyTile =
-                                (i == emptyTileRow && (emptyTileCol - j == 0 || emptyTileCol - j == 1 || emptyTileCol + j == 2 || emptyTileCol + j == 1)) ||  // same row, adjacent column
+                                (i == emptyTileRow && (j == emptyTileCol + 1 || j == emptyTileCol - 1)) ||  // same row, adjacent column
                                 (j == emptyTileCol && abs(i + emptyTileRow) == 1)
 
                             Box(
@@ -113,6 +114,9 @@ fun EightTileScreen(eightTile: Array<Array<Int>>) {
                     }
                 }
             }
+        }
+        Button(onClick = { navController.popBackStack() }) {
+            Text("Solved")
         }
     }
 }
