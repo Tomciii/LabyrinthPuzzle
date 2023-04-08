@@ -72,8 +72,10 @@ fun EightTileScreen(eightTile: Array<Array<Int>>) {
                             val emptyTileCol = emptyTilePosition.second
                             val isSelectedTile = selectedTile == position
                             val backgroundColor = if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Color.LightGray
-                            val isAdjacentToEmptyTile = (abs(i - emptyTileRow) == 1 && j == emptyTileCol) ||
-                                    (abs(j - emptyTileCol) == 1 && i == emptyTileRow)
+                            val isAdjacentToEmptyTile =
+                                (i == emptyTileRow && (emptyTileCol - j == 0 || emptyTileCol - j == 1 || emptyTileCol + j == 2 || emptyTileCol + j == 1)) ||  // same row, adjacent column
+                                (j == emptyTileCol && abs(i + emptyTileRow) == 1)
+
                             Box(
                                 modifier = Modifier
                                     .weight(2f)
