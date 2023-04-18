@@ -1,8 +1,7 @@
-package com.example.labyrinthpuzzle.screens
+package com.example.labyrinthpuzzle.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -13,17 +12,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.models.getEightTiles
+import com.example.labyrinthpuzzle.utils.InjectorUtils
+import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
 import java.lang.Math.abs
 
 @Composable
-fun EightTilePuzzleScreen(navController: NavController = rememberNavController()){
+fun EightTilePuzzleScreen(navController: NavController = rememberNavController(), eightTilePuzzleID: String? = "1"){
+  //  val viewModel: EightTilesPuzzleViewModel = viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
+
     Surface{
         SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
             Text(text="Eight Tiles Puzzle")

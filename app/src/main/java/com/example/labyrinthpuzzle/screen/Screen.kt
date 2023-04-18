@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.screens
+package com.example.labyrinthpuzzle.screen
 
 const val LABYRINTH_TILE_ID = "labyrinthTileID"
 const val PUZZLE_ARCHETYPE_ID = "puzzleArcheTypeID"

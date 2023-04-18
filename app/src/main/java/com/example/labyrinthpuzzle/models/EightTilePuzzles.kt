@@ -1,6 +1,9 @@
 package com.example.labyrinthpuzzle.models
 
-data class EightTile(
+import androidx.room.Entity
+
+// @Entity
+data class EightTile (
     var id: Int,
     var grid: Array<Array<Int>>
 )

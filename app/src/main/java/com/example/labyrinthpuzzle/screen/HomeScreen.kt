@@ -1,9 +1,12 @@
-package com.example.labyrinthpuzzle.screens
+package com.example.labyrinthpuzzle.screen
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.widgets.HomeTopAppBar
@@ -25,5 +28,10 @@ fun MainContent(
     modifier: Modifier,
     navController: NavController
 ) {
+Button(onClick = { navController.navigate(Screen.LabyrinthScreen.route) }) {
+    Text(text = "Start", modifier = Modifier
+        .width(100.dp)
+        .padding(4.dp))
 
+}
 }
