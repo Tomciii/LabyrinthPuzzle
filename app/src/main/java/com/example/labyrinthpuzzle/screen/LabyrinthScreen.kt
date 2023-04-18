@@ -11,14 +11,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.widgets.HomeTopAppBar
+import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
 
 @Composable
 fun LabyrinthScreen(navController: NavController = rememberNavController(), labyrinthId: String? = "1"){
     Scaffold(topBar = {
-        HomeTopAppBar(
-            title = "Labyrinth Puzzle",
-            menuContent = {}
-        )
+        SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
+            Text(text="Labyrinth")
+        }
     }) { padding ->
         Labyrinth(modifier = Modifier.padding(padding), navController)
     }
