@@ -1,12 +1,14 @@
 package com.example.labyrinthpuzzle.data
 
-import androidx.room.Dao
-import androidx.room.Update
+import androidx.room.*
 import com.example.labyrinthpuzzle.models.EightTile
 
 @Dao
 interface EightTilePuzzleDao {
+
     @Update
     suspend fun update(eightTilePuzzle: EightTile)
-    abstract fun getEightTilePuzzleById(id: Int): EightTile
+
+    @Query("SELECT * FROM eightTile where id=:id")
+    fun getEightTilePuzzleById(id: Int): EightTile
 }

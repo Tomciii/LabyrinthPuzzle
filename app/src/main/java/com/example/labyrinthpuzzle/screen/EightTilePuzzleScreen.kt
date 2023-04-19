@@ -19,28 +19,36 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.models.getEightTiles
+import com.example.labyrinthpuzzle.models.EightTile
 import com.example.labyrinthpuzzle.utils.InjectorUtils
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
 import java.lang.Math.abs
 
 @Composable
-fun EightTilePuzzleScreen(navController: NavController = rememberNavController(), eightTilePuzzleID: String? = "1"){
-  //  val viewModel: EightTilesPuzzleViewModel = viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
+fun EightTilePuzzleScreen(navController: NavController = rememberNavController(), eightTilePuzzleID: String? = "0"){
+    val viewModel: EightTilesPuzzleViewModel = viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    Surface{
-        SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
-            Text(text="Eight Tiles Puzzle")
+    eightTilePuzzleID?.let {
+
+        val eightTilePuzzle = viewModel.getEightTile(eightTilePuzzleID)
+
+        Surface{
+            SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
+                Text(text="Eight Tiles Puzzle")
+            }
+            EightTileScreen(eightTilePuzzle, navController, viewModel)
         }
-        EightTileScreen(getEightTiles(0), navController)
     }
+
 }
 
 @Composable
-fun EightTileScreen(eightTile: Array<Array<Int>>, navController: NavController) {
+fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, viewModel: EightTilesPuzzleViewModel) {
     var emptyTilePosition by remember { mutableStateOf(0 to 0) }
-    var tiles by remember { mutableStateOf(eightTile) }
+
+   var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzle.grid)) }
+
     var selectedTile by remember { mutableStateOf(-1 to -1) }
 
     Column(
@@ -126,7 +134,7 @@ fun EightTileScreen(eightTile: Array<Array<Int>>, navController: NavController) 
     }
 }
 
-private fun swapTiles(position1: Pair<Int, Int>, position2: Pair<Int, Int>, tiles: Array<Array<Int>>) {
+private fun swapTiles(position1: Pair<Int, Int>, position2: Pair<Int, Int>, tiles: Array<Array<Int?>>) {
     val temp = tiles[position1.first][position1.second]
     tiles[position1.first][position1.second] = tiles[position2.first][position2.second]
     tiles[position2.first][position2.second] = temp
