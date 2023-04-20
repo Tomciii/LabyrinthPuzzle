@@ -1,6 +1,5 @@
 package com.example.labyrinthpuzzle.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -24,7 +23,6 @@ import com.example.labyrinthpuzzle.models.EightTile
 import com.example.labyrinthpuzzle.utils.InjectorUtils
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
-import java.lang.Math.abs
 
 @Composable
 fun EightTilePuzzleScreen(navController: NavController = rememberNavController(), eightTilePuzzleID: String? = "0"){
@@ -88,6 +86,7 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
                             val emptyTileRow = emptyTilePosition.second
                             val isSelectedTile = selectedTile == position
                             val backgroundColor = if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Color.LightGray
+
                             val isAdjacentToEmptyTile =
                                 (selectedTile.first == emptyTileCol &&
                                         (position.second == emptyTileRow + 1 || position.second == emptyTileRow - 1)) ||
@@ -135,7 +134,7 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
             }
         }
 
-        isSolved = viewModel.isSequenceComplete(tiles)
+        isSolved = viewModel.isPuzzleSolved(tiles)
 
         if(isSolved){
             Button(onClick = { navController.popBackStack() }, enabled = true) {
