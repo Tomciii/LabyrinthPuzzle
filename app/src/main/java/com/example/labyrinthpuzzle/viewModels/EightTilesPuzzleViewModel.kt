@@ -29,4 +29,17 @@ class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepositor
 
         return matrix
     }
+
+    fun isSequenceComplete(arr: Array<Array<Int?>>): Boolean {
+        var expectedValue = 0
+        for (i in 0 until arr.size) {
+            for (j in 0 until arr[i].size) {
+                if (arr[i][j] != expectedValue) {
+                    return false
+                }
+                expectedValue++
+            }
+        }
+        return true
+    }
 }

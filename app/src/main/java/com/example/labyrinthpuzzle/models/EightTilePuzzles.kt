@@ -14,7 +14,7 @@ data class EightTile (
 var eightTiles = listOf(
     EightTile(
         id = 1,
-        grid = listOf("6","0","8","3","7","2","5","1","4"),
+        grid = listOf("0","1","2","3","4","5","6","7","8"),
         isSolved = false
     ))
 

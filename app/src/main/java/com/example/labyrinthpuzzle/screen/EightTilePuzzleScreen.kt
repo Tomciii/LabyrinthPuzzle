@@ -1,5 +1,6 @@
 package com.example.labyrinthpuzzle.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -45,10 +46,11 @@ fun EightTilePuzzleScreen(navController: NavController = rememberNavController()
 
 @Composable
 fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, viewModel: EightTilesPuzzleViewModel) {
-    var emptyTilePosition by remember { mutableStateOf(0 to 0) }
+    var emptyTilePosition by remember { mutableStateOf(-1 to -1) }
 
    var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzle.grid)) }
 
+    var isSolved by remember { mutableStateOf(false) }
     var selectedTile by remember { mutableStateOf(-1 to -1) }
 
     Column(
@@ -82,13 +84,16 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
                         for (j in tiles[i].indices) {
                             val position = i to j
 
-                            val emptyTileRow = emptyTilePosition.first
-                            val emptyTileCol = emptyTilePosition.second
+                            val emptyTileCol = emptyTilePosition.first
+                            val emptyTileRow = emptyTilePosition.second
                             val isSelectedTile = selectedTile == position
                             val backgroundColor = if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Color.LightGray
                             val isAdjacentToEmptyTile =
-                                (i == emptyTileRow && (j == emptyTileCol + 1 || j == emptyTileCol - 1)) ||  // same row, adjacent column
-                                (j == emptyTileCol && abs(i + emptyTileRow) == 1)
+                                (selectedTile.first == emptyTileCol &&
+                                        (position.second == emptyTileRow + 1 || position.second == emptyTileRow - 1)) ||
+                                        (position.second == emptyTileRow &&
+                                                (position.first == emptyTileCol + 1 || position.first == emptyTileCol - 1)) ||
+                                        (position.first == emptyTileCol - 1 && position.second == emptyTileRow)
 
                             Box(
                                 modifier = Modifier
@@ -103,6 +108,7 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
                                             },
                                             onTap = {
                                                 if (isAdjacentToEmptyTile) {
+
                                                     swapTiles(position, emptyTilePosition, tiles)
                                                     emptyTilePosition = position
                                                 }
@@ -128,11 +134,21 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
                 }
             }
         }
-        Button(onClick = { navController.popBackStack() }) {
-            Text("Solved")
+
+        isSolved = viewModel.isSequenceComplete(tiles)
+
+        if(isSolved){
+            Button(onClick = { navController.popBackStack() }, enabled = true) {
+                Text("Puzzle Solved!")
+            }
+        }else{
+            Button(onClick = { navController.popBackStack() }, enabled = false) {
+                Text("Puzzle not solved")
+            }
+            }
         }
     }
-}
+
 
 private fun swapTiles(position1: Pair<Int, Int>, position2: Pair<Int, Int>, tiles: Array<Array<Int?>>) {
     val temp = tiles[position1.first][position1.second]
