@@ -25,16 +25,20 @@ import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
 
 @Composable
-fun EightTilePuzzleScreen(navController: NavController = rememberNavController(), eightTilePuzzleID: String? = "0"){
-    val viewModel: EightTilesPuzzleViewModel = viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
+fun EightTilePuzzleScreen(
+    navController: NavController = rememberNavController(),
+    eightTilePuzzleID: String? = "0"
+) {
+    val viewModel: EightTilesPuzzleViewModel =
+        viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
     eightTilePuzzleID?.let {
 
         val eightTilePuzzle = viewModel.getEightTile(eightTilePuzzleID)
 
-        Surface{
-            SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
-                Text(text="Eight Tiles Puzzle")
+        Surface {
+            SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
+                Text(text = "Eight Tiles Puzzle")
             }
             EightTileScreen(eightTilePuzzle, navController, viewModel)
         }
@@ -43,10 +47,14 @@ fun EightTilePuzzleScreen(navController: NavController = rememberNavController()
 }
 
 @Composable
-fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, viewModel: EightTilesPuzzleViewModel) {
+fun EightTileScreen(
+    eightTilePuzzle: EightTile,
+    navController: NavController,
+    viewModel: EightTilesPuzzleViewModel
+) {
     var emptyTilePosition by remember { mutableStateOf(-1 to -1) }
 
-   var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzle.grid)) }
+    var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzle.grid)) }
 
     var isSolved by remember { mutableStateOf(false) }
     var selectedTile by remember { mutableStateOf(-1 to -1) }
@@ -71,7 +79,7 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
             val textSize = with(LocalDensity.current) { (boxSize / 1).toSp() }
             Column(
                 modifier = Modifier.fillMaxSize()
-            ){
+            ) {
                 for (i in tiles.indices) {
                     Row(
                         modifier = Modifier
@@ -82,17 +90,10 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
                         for (j in tiles[i].indices) {
                             val position = i to j
 
-                            val emptyTileCol = emptyTilePosition.first
-                            val emptyTileRow = emptyTilePosition.second
                             val isSelectedTile = selectedTile == position
-                            val backgroundColor = if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Color.LightGray
+                            val backgroundColor =
+                                if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Color.LightGray
 
-                            val isAdjacentToEmptyTile =
-                                (selectedTile.first == emptyTileCol &&
-                                        (position.second == emptyTileRow + 1 || position.second == emptyTileRow - 1)) ||
-                                        (position.second == emptyTileRow &&
-                                                (position.first == emptyTileCol + 1 || position.first == emptyTileCol - 1)) ||
-                                        (position.first == emptyTileCol - 1 && position.second == emptyTileRow)
 
                             Box(
                                 modifier = Modifier
@@ -106,6 +107,14 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
                                                 selectedTile = position
                                             },
                                             onTap = {
+                                                val emptyTileCol = emptyTilePosition.first
+                                                val emptyTileRow = emptyTilePosition.second
+                                                val isAdjacentToEmptyTile =
+                                                    (selectedTile.first == emptyTileCol &&
+                                                            (position.second == emptyTileRow + 1 || position.second == emptyTileRow - 1)) ||
+                                                            (position.second == emptyTileRow &&
+                                                                    (position.first == emptyTileCol + 1 || position.first == emptyTileCol - 1)) ||
+                                                            (position.first == emptyTileCol - 1 && position.second == emptyTileRow)
                                                 if (isAdjacentToEmptyTile) {
 
                                                     swapTiles(position, emptyTilePosition, tiles)
@@ -136,20 +145,24 @@ fun EightTileScreen(eightTilePuzzle: EightTile, navController: NavController, vi
 
         isSolved = viewModel.isPuzzleSolved(tiles)
 
-        if(isSolved){
+        if (isSolved) {
             Button(onClick = { navController.popBackStack() }, enabled = true) {
                 Text("Puzzle Solved!")
             }
-        }else{
+        } else {
             Button(onClick = { navController.popBackStack() }, enabled = false) {
                 Text("Puzzle not solved")
             }
-            }
         }
     }
+}
 
 
-private fun swapTiles(position1: Pair<Int, Int>, position2: Pair<Int, Int>, tiles: Array<Array<Int?>>) {
+private fun swapTiles(
+    position1: Pair<Int, Int>,
+    position2: Pair<Int, Int>,
+    tiles: Array<Array<Int?>>
+) {
     val temp = tiles[position1.first][position1.second]
     tiles[position1.first][position1.second] = tiles[position2.first][position2.second]
     tiles[position2.first][position2.second] = temp
