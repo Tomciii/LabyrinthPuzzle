@@ -11,8 +11,7 @@ fun PuzzleScreen(navController: NavController = rememberNavController(), puzzleI
     Column {
         when(puzzleId){
             "1" -> EightTilePuzzleScreen(navController, puzzleInstanceId)
-            else -> {
-            }
+            else -> {}
         }
     }
 }
