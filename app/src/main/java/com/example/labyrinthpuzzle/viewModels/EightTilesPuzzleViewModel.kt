@@ -30,6 +30,10 @@ class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepositor
         return matrix
     }
 
+    suspend fun update(eightTile: EightTile){
+        repository.update(eightTile)
+    }
+
     fun isPuzzleSolved(arr: Array<Array<Int?>>): Boolean {
         var expectedValue = 0
         for (i in 0 until arr.size) {

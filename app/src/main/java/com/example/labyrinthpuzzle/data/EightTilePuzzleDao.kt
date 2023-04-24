@@ -11,4 +11,5 @@ interface EightTilePuzzleDao {
 
     @Query("SELECT * FROM eightTile where id=:id")
     fun getEightTilePuzzleById(id: Int): EightTile
+
 }

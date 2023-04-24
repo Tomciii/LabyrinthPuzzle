@@ -13,4 +13,5 @@ interface MemoryPuzzleDao {
 
     @Query("SELECT * FROM memory where id=:id")
     fun getMemoryPuzzleById(id: Int): Memory
+
 }

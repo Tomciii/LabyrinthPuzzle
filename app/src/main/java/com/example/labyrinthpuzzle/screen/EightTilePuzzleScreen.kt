@@ -1,5 +1,6 @@
 package com.example.labyrinthpuzzle.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -23,6 +24,7 @@ import com.example.labyrinthpuzzle.models.EightTile
 import com.example.labyrinthpuzzle.utils.InjectorUtils
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
+import kotlinx.coroutines.launch
 
 @Composable
 fun EightTilePuzzleScreen(
@@ -46,16 +48,21 @@ fun EightTilePuzzleScreen(
 
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun EightTileScreen(
     eightTilePuzzle: EightTile,
     navController: NavController,
     viewModel: EightTilesPuzzleViewModel
 ) {
+    var eightTilePuzzleInstance by remember {
+        mutableStateOf(eightTilePuzzle)
+    }
+
     var emptyTilePosition by remember { mutableStateOf(-1 to -1) }
 
-    var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzle.grid)) }
-
+    var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzleInstance.grid)) }
+    val coroutineScope = rememberCoroutineScope()
     var isSolved by remember { mutableStateOf(false) }
     var selectedTile by remember { mutableStateOf(-1 to -1) }
 
@@ -143,17 +150,25 @@ fun EightTileScreen(
             }
         }
 
-        isSolved = viewModel.isPuzzleSolved(tiles)
-
-        if (isSolved) {
+        if (viewModel.isPuzzleSolved(tiles)) {
             Button(onClick = { navController.popBackStack() }, enabled = true) {
                 Text("Puzzle Solved!")
             }
+
+            eightTilePuzzleInstance.isSolved = true
+            var solvedPuzzle = EightTile(eightTilePuzzleInstance.id, eightTilePuzzle.grid, true)
+
+            coroutineScope.launch {
+                viewModel.update(solvedPuzzle)
+            }
+
         } else {
             Button(onClick = { navController.popBackStack() }, enabled = false) {
                 Text("Puzzle not solved")
             }
         }
+        
+        Text(text = eightTilePuzzleInstance.isSolved.toString())
     }
 }
 
