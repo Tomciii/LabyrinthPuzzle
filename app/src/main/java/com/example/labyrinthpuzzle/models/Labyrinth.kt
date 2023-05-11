@@ -17,6 +17,7 @@ data class LabyrinthTile (
     var right: Node
         )
 
+// I guess id 99 = back button idk
 data class Node(
     var isSolved: Boolean,
     var id: Int
