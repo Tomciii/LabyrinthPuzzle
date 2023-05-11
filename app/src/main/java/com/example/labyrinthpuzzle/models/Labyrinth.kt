@@ -22,8 +22,11 @@ data class Node(
     var id: Int
 )
 
-fun createLabyrinth(rows: Int, columns: Int): Array<Array<LabyrinthTile?>> {
-    return Array(rows) {
-        arrayOfNulls<LabyrinthTile>(columns)
+fun createLabyrinth(): Array<Array<LabyrinthTile?>> {
+    val rowCount = 7
+    val columnCount = 4
+
+    return Array(rowCount) {
+        arrayOfNulls(columnCount)
     }
 }
