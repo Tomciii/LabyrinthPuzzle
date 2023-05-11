@@ -7,9 +7,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun PuzzleScreen(navController: NavController = rememberNavController(), puzzleId: String? = "1", puzzleInstanceId: String? = "1"){
+fun PuzzleScreen(navController: NavController = rememberNavController(), puzzleArchetypeId: String? = "1", puzzleInstanceId: String? = "1"){
     Column {
-        when(puzzleId){
+        when(puzzleArchetypeId){
             "1" -> EightTilePuzzleScreen(navController, puzzleInstanceId)
             else -> {}
         }
