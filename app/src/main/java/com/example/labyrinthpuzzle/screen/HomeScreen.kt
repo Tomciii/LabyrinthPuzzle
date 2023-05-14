@@ -28,7 +28,7 @@ fun MainContent(
     modifier: Modifier,
     navController: NavController
 ) {
-Button(onClick = { navController.navigate(Screen.LabyrinthScreen.route) }) {
+Button(onClick = { navController.navigate(Screen.LabyrinthTileScreen.route) }) {
     Text(text = "Start", modifier = Modifier
         .width(100.dp)
         .padding(4.dp))
