@@ -1,4 +1,7 @@
 package com.example.labyrinthpuzzle.viewModels
 
-class LabyrinthViewModel {
+import com.example.labyrinthpuzzle.repository.LabyrinthRepository
+
+class LabyrinthViewModel(private val repository: LabyrinthRepository) {
+
 }
