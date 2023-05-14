@@ -20,11 +20,19 @@ fun Navigation() {
             EightTilePuzzleScreen(navController = navController)
         }
 
+        composable(route = Screen.ViewLabyrinthScreen.route){
+            ViewLabyrinthScreen(navController = navController)
+        }
+
+        composable(route = Screen.PuzzleScreen.route){
+            EightTilePuzzleScreen(navController = navController)
+        }
+
         composable(
-            Screen.LabyrinthScreen.route,
+            Screen.LabyrinthTileScreen.route,
             arguments = listOf(navArgument(name = LABYRINTH_TILE_ID) {type = NavType.StringType})
         ) { backStackEntry ->    // backstack contains all information from navhost
-            LabyrinthScreen(
+            LabyrinthTileScreen(
                 navController = navController, backStackEntry.arguments?.getString(
                     LABYRINTH_TILE_ID))   // get the argument from navhost that will be passed
         }
