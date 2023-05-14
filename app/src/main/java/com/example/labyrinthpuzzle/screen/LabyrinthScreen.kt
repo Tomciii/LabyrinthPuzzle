@@ -10,24 +10,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.models.Labyrinth
-import com.example.labyrinthpuzzle.models.createLabyrinth
-import com.example.labyrinthpuzzle.widgets.HomeTopAppBar
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
 
 @Composable
-fun LabyrinthScreen(navController: NavController = rememberNavController(), labyrinthId: String? = "1"){
+fun LabyrinthTileScreen(navController: NavController = rememberNavController(), labyrinthId: String? = "1"){
     Scaffold(topBar = {
         SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }){
             Text(text="Labyrinth")
         }
     }) { padding ->
-        Labyrinth(modifier = Modifier.padding(padding), navController)
+        LabyrinthTile(modifier = Modifier.padding(padding), navController)
     }
 }
 
 @Composable
-fun Labyrinth(
+fun LabyrinthTile(
     modifier: Modifier,
     navController: NavController
 ) {
