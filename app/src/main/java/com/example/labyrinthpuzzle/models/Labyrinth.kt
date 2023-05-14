@@ -1,15 +1,19 @@
 package com.example.labyrinthpuzzle.models
 
-
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 //TODO: Discuss and test if this is a good idea
+//TODO: Converter for labyrinthGrid
+@Entity
 data class Labyrinth (
-    var labyrinthId: Int,
-    var labyrinthGrid: Array<Array<LabyrinthTile?>>,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
+   // var labyrinthGrid: Array<Array<LabyrinthTile?>>,
     var isSolved: Boolean
 )
 
 data class LabyrinthTile (
-    var labyrinthTileId: Int,
+    var id: Int,
     var puzzleArchetypeId: Int,
     var up: Node,
     var down: Node,
