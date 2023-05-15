@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.labyrinthpuzzle.models.EightTile
 import com.example.labyrinthpuzzle.models.Labyrinth
 import com.example.labyrinthpuzzle.utils.CustomConverters
 
