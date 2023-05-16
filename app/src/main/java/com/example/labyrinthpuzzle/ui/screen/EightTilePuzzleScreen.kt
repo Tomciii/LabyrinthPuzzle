@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.screen
+package com.example.labyrinthpuzzle.ui.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -20,12 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.models.Eighttile
-import com.example.labyrinthpuzzle.models.Memory
-import com.example.labyrinthpuzzle.utils.InjectorUtils
+import com.example.labyrinthpuzzle.models.Eight
+import com.example.labyrinthpuzzle.persistence.utils.InjectorUtils
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
-import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
-import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
+import com.example.labyrinthpuzzle.ui.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,11 +34,13 @@ fun EightTilePuzzleScreen(
     eightTilePuzzleID: String? = "1"
 ) {
 
+
     val viewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    var eighttilePuzzle = viewModel.getEightTilePuzzleById("1")
+    var eighttilePuzzle = Eight(0, listOf(),false)
 
+    eightTilePuzzleID?.let {
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO){
             eighttilePuzzle = viewModel.getEightTilePuzzleById("1")
@@ -55,21 +55,20 @@ fun EightTilePuzzleScreen(
 
             EightTileScreen(eighttilePuzzle, navController, viewModel)
         }
-
-
+    }
 }
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun EightTileScreen(
-    eighttilePuzzle: Eighttile,
+    eightPuzzle: Eight,
     navController: NavController,
     viewModel: EightTilesPuzzleViewModel
 ) {
 
 
     var eightTilePuzzleInstance by remember {
-        mutableStateOf(eighttilePuzzle)
+        mutableStateOf(eightPuzzle)
     }
 
     LaunchedEffect(Unit) {
@@ -175,7 +174,7 @@ fun EightTileScreen(
             }
 
             eightTilePuzzleInstance.isSolved = true
-            var solvedPuzzle = Eighttile(eightTilePuzzleInstance.id, eighttilePuzzle.grid, true)
+            var solvedPuzzle = Eight(eightTilePuzzleInstance.id, eightPuzzle.grid, true)
 
             coroutineScope.launch {
                 viewModel.update(solvedPuzzle)

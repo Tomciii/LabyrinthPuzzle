@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.screen
+package com.example.labyrinthpuzzle.ui.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
+import com.example.labyrinthpuzzle.ui.widgets.SimpleTopAppBar
 
 @Composable
 fun LabyrinthTileScreen(navController: NavController = rememberNavController(), labyrinthId: String? = "1"){

@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.utils
+package com.example.labyrinthpuzzle.persistence.utils
 
 import androidx.room.TypeConverter
 

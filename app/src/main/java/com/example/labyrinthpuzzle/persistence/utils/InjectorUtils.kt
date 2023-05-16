@@ -1,19 +1,19 @@
-package com.example.labyrinthpuzzle.utils
+package com.example.labyrinthpuzzle.persistence.utils
 
 import android.content.Context
-import com.example.labyrinthpuzzle.data.EightTilePuzzleDatabase
-import com.example.labyrinthpuzzle.data.LabyrinthDatabase
-import com.example.labyrinthpuzzle.data.MemoryPuzzleDatabase
-import com.example.labyrinthpuzzle.repository.EightTilePuzzleRepository
-import com.example.labyrinthpuzzle.repository.LabyrinthRepository
-import com.example.labyrinthpuzzle.repository.MemoryPuzzleRepository
+import com.example.labyrinthpuzzle.persistence.data.EightTilePuzzleDatabase
+import com.example.labyrinthpuzzle.persistence.data.LabyrinthDatabase
+import com.example.labyrinthpuzzle.persistence.data.MemoryPuzzleDatabase
+import com.example.labyrinthpuzzle.persistence.repository.EightTilePuzzleRepository
+import com.example.labyrinthpuzzle.persistence.repository.LabyrinthRepository
+import com.example.labyrinthpuzzle.persistence.repository.MemoryPuzzleRepository
 import com.example.labyrinthpuzzle.viewModels.factories.EightTilesPuzzleViewModelFactory
 import com.example.labyrinthpuzzle.viewModels.factories.LabyrinthViewModelFactory
 import com.example.labyrinthpuzzle.viewModels.factories.MemoryPuzzleViewModelFactory
 
 object InjectorUtils {
 
-    private fun getEightPuzzleTileRepository(context: Context) : EightTilePuzzleRepository{
+    private fun getEightPuzzleTileRepository(context: Context) : EightTilePuzzleRepository {
         return EightTilePuzzleRepository(EightTilePuzzleDatabase.getDatabase(context).dao())
     }
 

@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.data
+package com.example.labyrinthpuzzle.persistence.data
 
 import androidx.room.Dao
 import androidx.room.Insert

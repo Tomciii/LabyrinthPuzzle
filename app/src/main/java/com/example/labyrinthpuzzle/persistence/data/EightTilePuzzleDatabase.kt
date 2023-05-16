@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.data
+package com.example.labyrinthpuzzle.persistence.data
 
 import android.content.Context
 import androidx.room.Database
@@ -6,16 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.labyrinthpuzzle.models.Eighttile
-import com.example.labyrinthpuzzle.models.eighttilePuzzleLists
-import com.example.labyrinthpuzzle.utils.CustomConverters
+import com.example.labyrinthpuzzle.models.Eight
+import com.example.labyrinthpuzzle.models.eightPuzzleLists
+import com.example.labyrinthpuzzle.persistence.utils.CustomConverters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Eighttile::class],
-    version = 2,
+    entities = [Eight::class],
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(CustomConverters::class)
@@ -27,17 +27,17 @@ abstract class EightTilePuzzleDatabase : RoomDatabase() {
         private var Instance: EightTilePuzzleDatabase? = null
 
         fun getDatabase(context: Context): EightTilePuzzleDatabase {
-            return Instance?: synchronized(this){
+            return Instance ?: synchronized(this){
                 Room.databaseBuilder(
                     context,
                     EightTilePuzzleDatabase::class.java,
-                    "eighttilePuzzle_db")
+                    "eightPuzzle_db")
                     .addCallback(object : Callback(){
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
 
                             CoroutineScope(Dispatchers.IO).launch {
-                                Instance?.dao()!!.insertAll(eighttilePuzzleList = eighttilePuzzleLists)
+                                Instance?.dao()!!.insertAll(eightPuzzleList = eightPuzzleLists)
                             }
                         }
                     })

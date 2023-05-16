@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.widgets
+package com.example.labyrinthpuzzle.ui.widgets
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

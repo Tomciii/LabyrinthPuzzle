@@ -1,13 +1,13 @@
 package com.example.labyrinthpuzzle.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.example.labyrinthpuzzle.models.Eighttile
-import com.example.labyrinthpuzzle.models.eighttilePuzzleLists
-import com.example.labyrinthpuzzle.repository.EightTilePuzzleRepository
+import com.example.labyrinthpuzzle.models.Eight
+import com.example.labyrinthpuzzle.models.eightPuzzleLists
+import com.example.labyrinthpuzzle.persistence.repository.EightTilePuzzleRepository
 
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
-    fun getEightTilePuzzleById(puzzleId: String): Eighttile {
-        return eighttilePuzzleLists.get(puzzleId.toInt())
+    fun getEightTilePuzzleById(puzzleId: String): Eight {
+        return repository.getEightTilePuzzlebyId(puzzleId.toInt())
         // repository.getEightTilePuzzlebyId(puzzleId.toInt())
     }
 
@@ -23,7 +23,7 @@ class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepositor
         return matrix
     }
 
-    suspend fun update(eightTile: Eighttile){
+    suspend fun update(eightTile: Eight){
         repository.update(eightTile)
     }
 

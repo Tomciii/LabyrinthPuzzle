@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.screen
+package com.example.labyrinthpuzzle.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable

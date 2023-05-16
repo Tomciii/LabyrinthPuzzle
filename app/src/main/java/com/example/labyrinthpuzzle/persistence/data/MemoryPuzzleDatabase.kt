@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.data
+package com.example.labyrinthpuzzle.persistence.data
 
 import android.content.Context
 import androidx.room.Database
@@ -8,14 +8,14 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.labyrinthpuzzle.models.Memory
 import com.example.labyrinthpuzzle.models.memoryList
-import com.example.labyrinthpuzzle.utils.CustomConverters
+import com.example.labyrinthpuzzle.persistence.utils.CustomConverters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(
     entities = [Memory::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(CustomConverters::class)
@@ -27,7 +27,7 @@ abstract class MemoryPuzzleDatabase : RoomDatabase() {
         private var Instance: MemoryPuzzleDatabase? = null
 
         fun getDatabase(context: Context): MemoryPuzzleDatabase {
-            return Instance?: synchronized(this){
+            return Instance ?: synchronized(this){
                 Room.databaseBuilder(
                     context,
                     MemoryPuzzleDatabase::class.java,
