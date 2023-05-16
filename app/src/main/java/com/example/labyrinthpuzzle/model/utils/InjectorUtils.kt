@@ -1,9 +1,9 @@
 package com.example.labyrinthpuzzle.model.utils
 
 import android.content.Context
-import com.example.labyrinthpuzzle.model.data.EightTilePuzzleDatabase
-import com.example.labyrinthpuzzle.model.data.LabyrinthDatabase
-import com.example.labyrinthpuzzle.model.data.MemoryPuzzleDatabase
+import com.example.labyrinthpuzzle.model.database.EightTilePuzzleDatabase
+import com.example.labyrinthpuzzle.model.database.LabyrinthDatabase
+import com.example.labyrinthpuzzle.model.database.MemoryPuzzleDatabase
 import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 import com.example.labyrinthpuzzle.model.repository.LabyrinthRepository
 import com.example.labyrinthpuzzle.model.repository.MemoryPuzzleRepository

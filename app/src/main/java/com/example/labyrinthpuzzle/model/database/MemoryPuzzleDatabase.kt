@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.model.data
+package com.example.labyrinthpuzzle.model.database
 
 import android.content.Context
 import androidx.room.Database
@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.labyrinthpuzzle.model.dao.MemoryPuzzleDao
 import com.example.labyrinthpuzzle.model.models.Memory
 import com.example.labyrinthpuzzle.model.models.memoryList
 import com.example.labyrinthpuzzle.model.utils.CustomConverters

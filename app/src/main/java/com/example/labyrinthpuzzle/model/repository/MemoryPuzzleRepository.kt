@@ -1,6 +1,6 @@
 package com.example.labyrinthpuzzle.model.repository
 
-import com.example.labyrinthpuzzle.model.data.MemoryPuzzleDao
+import com.example.labyrinthpuzzle.model.dao.MemoryPuzzleDao
 import com.example.labyrinthpuzzle.model.models.Memory
 
 class MemoryPuzzleRepository(private val dao: MemoryPuzzleDao) {

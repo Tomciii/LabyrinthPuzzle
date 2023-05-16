@@ -1,10 +1,11 @@
-package com.example.labyrinthpuzzle.model.data
+package com.example.labyrinthpuzzle.model.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.labyrinthpuzzle.model.dao.LabyrinthDao
 import com.example.labyrinthpuzzle.model.models.Labyrinth
 import com.example.labyrinthpuzzle.model.utils.CustomConverters
 
