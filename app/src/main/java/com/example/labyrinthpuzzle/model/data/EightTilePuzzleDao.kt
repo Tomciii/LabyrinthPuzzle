@@ -10,6 +10,9 @@ interface EightTilePuzzleDao {
     @Update
     suspend fun update(eightPuzzle: Eight)
 
+    @Query("DELETE FROM eight")
+    suspend fun deleteAll()
+
     @Query("SELECT * FROM eight")
     fun selectAll(): List<Eight>
     @Query("SELECT * FROM eight where id=:id")

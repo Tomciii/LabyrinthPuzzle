@@ -14,7 +14,8 @@ interface MemoryPuzzleDao {
 
     @Update
     suspend fun update(memoryPuzzle: Memory)
-
+    @Query("DELETE FROM memory")
+    suspend fun deleteAll()
     @Query("SELECT * FROM memory where id=:id")
     fun getMemoryPuzzleById(id: Int): Memory
 

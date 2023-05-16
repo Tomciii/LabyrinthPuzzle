@@ -7,7 +7,6 @@ import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
     fun getEightTilePuzzleById(puzzleId: String): Eight {
         return repository.getEightTilePuzzlebyId(puzzleId.toInt())
-        // repository.getEightTilePuzzlebyId(puzzleId.toInt())
     }
 
     fun convertListTo2DArray(list: List<String>): Array<Array<Int?>> {

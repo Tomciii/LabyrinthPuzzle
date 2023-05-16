@@ -34,16 +34,18 @@ fun EightTilePuzzleScreen(
     eightTilePuzzleID: String? = "1"
 ) {
 
-
     val viewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    var eighttilePuzzle = Eight(0, listOf(),false)
+    var eighttilePuzzle by remember {
+        mutableStateOf(
+            Eight(0,listOf("0","1","2","3","4","5","6","7","8"),false)
+        )
+    }
 
-    eightTilePuzzleID?.let {
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO){
-            eighttilePuzzle = viewModel.getEightTilePuzzleById("1")
+            eighttilePuzzle = viewModel.getEightTilePuzzleById(eightTilePuzzleID.toString())
         }
     }
 
@@ -51,11 +53,9 @@ fun EightTilePuzzleScreen(
             SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
                 Text(text = "Eight Tiles Puzzle")
             }
-
-
-            EightTileScreen(eighttilePuzzle, navController, viewModel)
+                EightTileScreen(eighttilePuzzle, navController, viewModel)
         }
-    }
+
 }
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -66,21 +66,15 @@ fun EightTileScreen(
     viewModel: EightTilesPuzzleViewModel
 ) {
 
-
     var eightTilePuzzleInstance by remember {
         mutableStateOf(eightPuzzle)
     }
 
-    LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            eightTilePuzzleInstance = viewModel.getEightTilePuzzleById("1")
-        }
-    }
+    val coroutineScope = rememberCoroutineScope()
 
     var emptyTilePosition by remember { mutableStateOf(-1 to -1) }
 
     var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzleInstance.grid)) }
-    val coroutineScope = rememberCoroutineScope()
     var isSolved by remember { mutableStateOf(false) }
     var selectedTile by remember { mutableStateOf(-1 to -1) }
 
@@ -185,8 +179,6 @@ fun EightTileScreen(
                 Text("Puzzle not solved")
             }
         }
-        
-        Text(text = eightTilePuzzleInstance.isSolved.toString())
     }
 }
 

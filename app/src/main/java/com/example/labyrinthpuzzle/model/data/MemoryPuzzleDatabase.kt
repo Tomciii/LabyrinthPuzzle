@@ -33,10 +33,11 @@ abstract class MemoryPuzzleDatabase : RoomDatabase() {
                     MemoryPuzzleDatabase::class.java,
                     "memoryPuzzle_db")
                     .addCallback(object : Callback(){
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
+                        override fun onOpen(db: SupportSQLiteDatabase) {
+                            super.onOpen(db)
 
                             CoroutineScope(Dispatchers.IO).launch {
+                                Instance?.dao()!!.deleteAll()
                                 Instance?.dao()!!.insertAll(memoryList = memoryList)
                                     }
                             }
