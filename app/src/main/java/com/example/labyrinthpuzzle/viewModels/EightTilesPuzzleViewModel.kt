@@ -3,15 +3,15 @@ package com.example.labyrinthpuzzle.viewModels
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.labyrinthpuzzle.models.EightTile
-import com.example.labyrinthpuzzle.models.getEightTilesPuzzles
+import com.example.labyrinthpuzzle.models.getEightTilesPuzzleList
 import com.example.labyrinthpuzzle.repository.EightTilePuzzleRepository
 
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
-    fun getEightTile(puzzleId: String): EightTile {
-        return getEightTilesPuzzles().get(puzzleId.toInt())
+    fun getEightTilePuzzleById(puzzleId: String): EightTile {
+        return getEightTilesPuzzleList().get(puzzleId.toInt())
     }
 
-    private val _eightTileList = getEightTilesPuzzles().toMutableStateList()
+    private val _eightTileList = getEightTilesPuzzleList().toMutableStateList()
     val eightTiles: List<EightTile>
         get() = _eightTileList
     fun getEightTilesPuzzleById(id:Int) : Array<Array<Int?>>{

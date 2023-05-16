@@ -11,7 +11,7 @@ data class EightTile (
     var isSolved: Boolean
 )
 
-var eightTiles = listOf(
+var eightTilePuzzleList = listOf(
     EightTile(
         id = 1,
         grid = listOf("1","0","2","3","4","5","6","7","8"),
@@ -29,10 +29,6 @@ var eightTiles = listOf(
     )
 )
 
-fun getEightTilesPuzzle(id:Int): List<String>{
-    return eightTiles.get(id).grid
-}
-
-fun getEightTilesPuzzles(): List<EightTile>{
-    return eightTiles
+fun getEightTilesPuzzleList(): List<EightTile>{
+    return eightTilePuzzleList
 }

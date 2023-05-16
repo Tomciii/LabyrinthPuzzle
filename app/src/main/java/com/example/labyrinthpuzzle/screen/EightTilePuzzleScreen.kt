@@ -36,7 +36,7 @@ fun EightTilePuzzleScreen(
 
     eightTilePuzzleID?.let {
 
-        val eightTilePuzzle = viewModel.getEightTile(eightTilePuzzleID)
+        val eightTilePuzzle = viewModel.getEightTilePuzzleById(eightTilePuzzleID)
 
         Surface {
             SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
