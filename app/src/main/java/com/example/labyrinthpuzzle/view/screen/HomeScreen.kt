@@ -5,21 +5,12 @@ import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.model.models.Eight
-import com.example.labyrinthpuzzle.model.models.Memory
-import com.example.labyrinthpuzzle.model.utils.InjectorUtils
-import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
-import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import com.example.labyrinthpuzzle.view.widgets.HomeTopAppBar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+
 
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController()){
