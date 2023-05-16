@@ -15,7 +15,7 @@ import com.example.labyrinthpuzzle.utils.CustomConverters
 )
 @TypeConverters(CustomConverters::class)
 abstract class LabyrinthDatabase : RoomDatabase() {
-    abstract fun labyrinthDao(): LabyrinthDao
+    abstract fun dao(): LabyrinthDao
 
     companion object{
         @Volatile

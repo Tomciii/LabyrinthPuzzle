@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 )
 @TypeConverters(CustomConverters::class)
 abstract class MemoryPuzzleDatabase : RoomDatabase() {
-    abstract fun memoryPuzzleDao(): MemoryPuzzleDao
+    abstract fun dao(): MemoryPuzzleDao
 
     companion object{
         @Volatile
@@ -37,7 +37,7 @@ abstract class MemoryPuzzleDatabase : RoomDatabase() {
                             super.onCreate(db)
 
                             CoroutineScope(Dispatchers.IO).launch {
-                                Instance?.memoryPuzzleDao()!!.insertAll(memoryList = memoryList)
+                                Instance?.dao()!!.insertAll(memoryList = memoryList)
                                     }
                             }
                     })

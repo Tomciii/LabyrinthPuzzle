@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 )
 @TypeConverters(CustomConverters::class)
 abstract class EightTilePuzzleDatabase : RoomDatabase() {
-    abstract fun eightTilePuzzleDao(): EightTilePuzzleDao
+    abstract fun dao(): EightTilePuzzleDao
 
     companion object{
         @Volatile
@@ -37,7 +37,7 @@ abstract class EightTilePuzzleDatabase : RoomDatabase() {
                             super.onCreate(db)
 
                             CoroutineScope(Dispatchers.IO).launch {
-                                Instance?.eightTilePuzzleDao()!!.insertAll(eighttilePuzzleList = eighttilePuzzleLists)
+                                Instance?.dao()!!.insertAll(eighttilePuzzleList = eighttilePuzzleLists)
                             }
                         }
                     })
