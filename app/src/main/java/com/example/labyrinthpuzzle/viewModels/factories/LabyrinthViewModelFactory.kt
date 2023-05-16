@@ -2,7 +2,7 @@ package com.example.labyrinthpuzzle.viewModels.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.labyrinthpuzzle.persistence.repository.LabyrinthRepository
+import com.example.labyrinthpuzzle.model.repository.LabyrinthRepository
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
 
 class LabyrinthViewModelFactory(private val repository: LabyrinthRepository): ViewModelProvider.Factory {

@@ -1,9 +1,8 @@
 package com.example.labyrinthpuzzle.viewModels
 
 import androidx.lifecycle.ViewModel
-import com.example.labyrinthpuzzle.models.Eight
-import com.example.labyrinthpuzzle.models.eightPuzzleLists
-import com.example.labyrinthpuzzle.persistence.repository.EightTilePuzzleRepository
+import com.example.labyrinthpuzzle.model.models.Eight
+import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
     fun getEightTilePuzzleById(puzzleId: String): Eight {
