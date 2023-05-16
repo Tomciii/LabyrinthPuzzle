@@ -11,22 +11,20 @@ data class Memory (
     var isSolved: Boolean
 )
 
-fun getMemoryPuzzleList(): List<Memory>{
-    return listOf(
-        Memory(
-            id = 1,
-            grid = listOf("0","0","1","1","2","2"),
-            isSolved = false
-        ),
-        Memory(
-            id = 2,
-            grid = listOf("0","0","1","1","2","2"),
-            isSolved = false
-        ),
-        Memory(
-            id = 3,
-            grid = listOf("0","0","1","1","2","2"),
-            isSolved = false
-        )
+var memoryList = listOf(
+    Memory(
+        id = 0,
+        grid = listOf("0","0","1","1","2","2"),
+        isSolved = false
+    ),
+    Memory(
+        id = 1,
+        grid = listOf("0","0","1","1","2","2"),
+        isSolved = false
+    ),
+    Memory(
+        id = 2,
+        grid = listOf("0","0","1","1","2","2"),
+        isSolved = false
     )
-}
+)

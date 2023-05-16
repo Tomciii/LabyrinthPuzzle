@@ -5,8 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.labyrinthpuzzle.models.Memory
+import com.example.labyrinthpuzzle.models.memoryList
 import com.example.labyrinthpuzzle.utils.CustomConverters
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Database(
     entities = [Memory::class],
@@ -23,7 +28,19 @@ abstract class MemoryPuzzleDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): MemoryPuzzleDatabase {
             return Instance?: synchronized(this){
-                Room.databaseBuilder(context, MemoryPuzzleDatabase::class.java, "memoryPuzzle_db")
+                Room.databaseBuilder(
+                    context,
+                    MemoryPuzzleDatabase::class.java,
+                    "memoryPuzzle_db")
+                    .addCallback(object : Callback(){
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+
+                            CoroutineScope(Dispatchers.IO).launch {
+                                Instance?.memoryPuzzleDao()!!.insertAll(memoryList = memoryList)
+                                    }
+                            }
+                    })
                     .fallbackToDestructiveMigration()
                     .build()
                     .also {

@@ -1,21 +1,14 @@
 package com.example.labyrinthpuzzle.viewModels
 
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.labyrinthpuzzle.models.EightTile
-import com.example.labyrinthpuzzle.models.getEightTilesPuzzleList
+import com.example.labyrinthpuzzle.models.Eighttile
+import com.example.labyrinthpuzzle.models.eighttilePuzzleLists
 import com.example.labyrinthpuzzle.repository.EightTilePuzzleRepository
 
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
-    fun getEightTilePuzzleById(puzzleId: String): EightTile {
-        return getEightTilesPuzzleList().get(puzzleId.toInt())
-    }
-
-    private val _eightTileList = getEightTilesPuzzleList().toMutableStateList()
-    val eightTiles: List<EightTile>
-        get() = _eightTileList
-    fun getEightTilesPuzzleById(id:Int) : Array<Array<Int?>>{
-       return convertListTo2DArray(repository.getEightTilePuzzlebyId(id).grid)
+    fun getEightTilePuzzleById(puzzleId: String): Eighttile {
+        return eighttilePuzzleLists.get(puzzleId.toInt())
+        // repository.getEightTilePuzzlebyId(puzzleId.toInt())
     }
 
     fun convertListTo2DArray(list: List<String>): Array<Array<Int?>> {
@@ -30,7 +23,7 @@ class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepositor
         return matrix
     }
 
-    suspend fun update(eightTile: EightTile){
+    suspend fun update(eightTile: Eighttile){
         repository.update(eightTile)
     }
 

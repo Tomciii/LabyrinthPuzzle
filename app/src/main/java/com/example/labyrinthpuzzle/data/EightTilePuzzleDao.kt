@@ -1,15 +1,18 @@
 package com.example.labyrinthpuzzle.data
 
 import androidx.room.*
-import com.example.labyrinthpuzzle.models.EightTile
+import com.example.labyrinthpuzzle.models.Eighttile
 
 @Dao
 interface EightTilePuzzleDao {
-
+    @Insert
+    suspend fun insertAll(eighttilePuzzleList: List<Eighttile>)
     @Update
-    suspend fun update(eightTilePuzzle: EightTile)
+    suspend fun update(eighttilePuzzle: Eighttile)
 
-    @Query("SELECT * FROM eightTile where id=:id")
-    fun getEightTilePuzzleById(id: Int): EightTile
+    @Query("SELECT * FROM eighttile")
+    fun selectAll(): List<Eighttile>
+    @Query("SELECT * FROM eighttile where id=:id")
+    fun getEightTilePuzzleById(id: Int): Eighttile
 
 }

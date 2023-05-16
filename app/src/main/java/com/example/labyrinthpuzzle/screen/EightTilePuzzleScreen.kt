@@ -20,43 +20,62 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.models.EightTile
+import com.example.labyrinthpuzzle.models.Eighttile
+import com.example.labyrinthpuzzle.models.Memory
 import com.example.labyrinthpuzzle.utils.InjectorUtils
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
+import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun EightTilePuzzleScreen(
     navController: NavController = rememberNavController(),
-    eightTilePuzzleID: String? = "0"
+    eightTilePuzzleID: String? = "1"
 ) {
+
     val viewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    eightTilePuzzleID?.let {
+    var eighttilePuzzle = viewModel.getEightTilePuzzleById("1")
 
-        val eightTilePuzzle = viewModel.getEightTilePuzzleById(eightTilePuzzleID)
+    LaunchedEffect(Unit) {
+        withContext(Dispatchers.IO){
+            eighttilePuzzle = viewModel.getEightTilePuzzleById("1")
+        }
+    }
 
         Surface {
             SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
                 Text(text = "Eight Tiles Puzzle")
             }
-            EightTileScreen(eightTilePuzzle, navController, viewModel)
+
+
+            EightTileScreen(eighttilePuzzle, navController, viewModel)
         }
-    }
+
 
 }
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun EightTileScreen(
-    eightTilePuzzle: EightTile,
+    eighttilePuzzle: Eighttile,
     navController: NavController,
     viewModel: EightTilesPuzzleViewModel
 ) {
+
+
     var eightTilePuzzleInstance by remember {
-        mutableStateOf(eightTilePuzzle)
+        mutableStateOf(eighttilePuzzle)
+    }
+
+    LaunchedEffect(Unit) {
+        withContext(Dispatchers.IO) {
+            eightTilePuzzleInstance = viewModel.getEightTilePuzzleById("1")
+        }
     }
 
     var emptyTilePosition by remember { mutableStateOf(-1 to -1) }
@@ -156,7 +175,7 @@ fun EightTileScreen(
             }
 
             eightTilePuzzleInstance.isSolved = true
-            var solvedPuzzle = EightTile(eightTilePuzzleInstance.id, eightTilePuzzle.grid, true)
+            var solvedPuzzle = Eighttile(eightTilePuzzleInstance.id, eighttilePuzzle.grid, true)
 
             coroutineScope.launch {
                 viewModel.update(solvedPuzzle)
