@@ -5,7 +5,7 @@ import com.example.labyrinthpuzzle.model.models.Eight
 import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
-    fun getEightTilePuzzleById(puzzleId: String): Eight {
+    fun getEightTilePuzzleById(puzzleId: String): Eight? {
         return repository.getEightTilePuzzlebyId(puzzleId.toInt())
     }
 

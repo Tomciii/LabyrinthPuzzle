@@ -37,7 +37,7 @@ fun EightTilePuzzleScreen(
     val viewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    var eighttilePuzzle by remember {
+    var eighttilePuzzle : Eight? by remember {
         mutableStateOf(
             Eight(0,listOf("0","1","2","3","4","5","6","7","8"),false)
         )
@@ -61,7 +61,7 @@ fun EightTilePuzzleScreen(
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun EightTileScreen(
-    eightPuzzle: Eight,
+    eightPuzzle: Eight?,
     navController: NavController,
     viewModel: EightTilesPuzzleViewModel
 ) {
@@ -74,7 +74,7 @@ fun EightTileScreen(
 
     var emptyTilePosition by remember { mutableStateOf(-1 to -1) }
 
-    var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzleInstance.grid)) }
+    var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzleInstance!!.grid)) }
     var isSolved by remember { mutableStateOf(false) }
     var selectedTile by remember { mutableStateOf(-1 to -1) }
 
@@ -162,13 +162,13 @@ fun EightTileScreen(
             }
         }
 
-        if (viewModel.isPuzzleSolved(tiles) || eightTilePuzzleInstance.isSolved) {
+        if (viewModel.isPuzzleSolved(tiles) || eightTilePuzzleInstance!!.isSolved) {
             Button(onClick = { navController.popBackStack() }, enabled = true) {
                 Text("Puzzle Solved!")
             }
 
-            eightTilePuzzleInstance.isSolved = true
-            var solvedPuzzle = Eight(eightTilePuzzleInstance.id, eightPuzzle.grid, true)
+            eightTilePuzzleInstance!!.isSolved = true
+            var solvedPuzzle = Eight(eightTilePuzzleInstance!!.id, eightPuzzle!!.grid, true)
 
             coroutineScope.launch {
                 viewModel.update(solvedPuzzle)

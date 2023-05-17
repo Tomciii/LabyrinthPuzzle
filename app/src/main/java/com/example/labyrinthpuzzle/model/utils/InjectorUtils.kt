@@ -1,9 +1,7 @@
 package com.example.labyrinthpuzzle.model.utils
 
 import android.content.Context
-import com.example.labyrinthpuzzle.model.database.EightTilePuzzleDatabase
-import com.example.labyrinthpuzzle.model.database.LabyrinthDatabase
-import com.example.labyrinthpuzzle.model.database.MemoryPuzzleDatabase
+import com.example.labyrinthpuzzle.model.database.AppDatabase
 import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 import com.example.labyrinthpuzzle.model.repository.LabyrinthRepository
 import com.example.labyrinthpuzzle.model.repository.MemoryPuzzleRepository
@@ -14,7 +12,7 @@ import com.example.labyrinthpuzzle.viewModels.factories.MemoryPuzzleViewModelFac
 object InjectorUtils {
 
     private fun getEightPuzzleTileRepository(context: Context) : EightTilePuzzleRepository {
-        return EightTilePuzzleRepository(EightTilePuzzleDatabase.getDatabase(context).dao())
+        return EightTilePuzzleRepository(AppDatabase.getDatabase(context).eightTilePuzzleDao())
     }
 
     fun provideEightTilePuzzleViewModel(context: Context) : EightTilesPuzzleViewModelFactory {
@@ -23,7 +21,7 @@ object InjectorUtils {
     }
 
     private fun getMemoryRepository(context: Context) : MemoryPuzzleRepository {
-        return MemoryPuzzleRepository(MemoryPuzzleDatabase.getDatabase(context).dao())
+        return MemoryPuzzleRepository(AppDatabase.getDatabase(context).memoryPuzzleDao())
     }
 
     fun provideMemoryPuzzleViewModel(context: Context) : MemoryPuzzleViewModelFactory {
@@ -32,10 +30,10 @@ object InjectorUtils {
     }
 
     private fun getLabyrinthRepository(context: Context) : LabyrinthRepository {
-        return LabyrinthRepository(LabyrinthDatabase.getDatabase(context).dao())
+        return LabyrinthRepository(AppDatabase.getDatabase(context).labyrinthTilePuzzleDao())
     }
 
-    fun provideLabyrinthModel(context: Context) : LabyrinthViewModelFactory {
+    fun provideLabyrinthViewModel(context: Context) : LabyrinthViewModelFactory {
         val repository = getLabyrinthRepository(context)
         return LabyrinthViewModelFactory(repository)
     }

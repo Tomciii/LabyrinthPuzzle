@@ -16,6 +16,6 @@ interface EightTilePuzzleDao {
     @Query("SELECT * FROM eight")
     fun selectAll(): List<Eight>
     @Query("SELECT * FROM eight where id=:id")
-    fun getEightTilePuzzleById(id: Int): Eight
+    fun getEightTilePuzzleById(id: Int): Eight?
 
 }
