@@ -32,7 +32,10 @@ fun MainContent(
 ) {
     Column() {
         Row() {
-            Button(onClick = { navController.navigate(Screen.LabyrinthTileScreen.route) }) {
+            Button(onClick = {
+                var labyrinthId = "1"
+                navController.navigate("labyrinth/$labyrinthId")
+            }) {
                 Text(text = "Start", modifier = Modifier
                     .width(100.dp)
                     .padding(4.dp))
