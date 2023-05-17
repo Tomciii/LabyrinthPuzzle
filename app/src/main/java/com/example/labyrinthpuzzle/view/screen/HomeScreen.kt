@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.labyrinthpuzzle.view.screen.Screen
 import com.example.labyrinthpuzzle.view.widgets.HomeTopAppBar
 import kotlin.system.exitProcess
 

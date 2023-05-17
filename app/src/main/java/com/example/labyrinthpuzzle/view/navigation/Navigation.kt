@@ -6,6 +6,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.labyrinthpuzzle.screen.HomeScreen
+import com.example.labyrinthpuzzle.screen.HowToScreen
+import com.example.labyrinthpuzzle.view.screen.LABYRINTH_TILE_ID
+import com.example.labyrinthpuzzle.view.screen.Screen
+import com.example.labyrinthpuzzle.screen.SettingsScreen
 import com.example.labyrinthpuzzle.view.screen.*
 
 @Composable
