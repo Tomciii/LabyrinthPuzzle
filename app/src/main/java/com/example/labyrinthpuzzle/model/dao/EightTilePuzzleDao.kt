@@ -2,6 +2,7 @@ package com.example.labyrinthpuzzle.model.dao
 
 import androidx.room.*
 import com.example.labyrinthpuzzle.model.models.Eight
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EightTilePuzzleDao {

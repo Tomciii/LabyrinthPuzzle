@@ -25,6 +25,7 @@ import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -37,11 +38,7 @@ fun EightTilePuzzleScreen(
     val viewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    var eighttilePuzzle : Eight? by remember {
-        mutableStateOf(
-            Eight(0,listOf("0","1","2","3","4","5","6","7","8"),false)
-        )
-    }
+    var eighttilePuzzle: MutableState<Eight?> = remember { mutableStateOf(Eight(0, listOf("0","1","2","3","4","5","6","7","8"),false)) }
 
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO){
@@ -53,7 +50,7 @@ fun EightTilePuzzleScreen(
             SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
                 Text(text = "Eight Tiles Puzzle")
             }
-                EightTileScreen(eighttilePuzzle, navController, viewModel)
+                EightTileScreen(eighttilePuzzle.value, navController, viewModel)
         }
 
 }
