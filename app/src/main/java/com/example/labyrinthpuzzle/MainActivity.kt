@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.example.labyrinthpuzzle.navigation.Navigation
-import com.example.labyrinthpuzzle.ui.theme.LabyrinthPuzzleTheme
+import com.example.labyrinthpuzzle.view.navigation.Navigation
+import com.example.labyrinthpuzzle.view.theme.LabyrinthPuzzleTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,4 +24,22 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    /*
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop Called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy Called")
+    }
+    */
+
 }
