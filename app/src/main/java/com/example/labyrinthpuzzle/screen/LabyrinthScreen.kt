@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.widgets.HomeTopAppBar
 import com.example.labyrinthpuzzle.widgets.SimpleTopAppBar
 
 @Composable

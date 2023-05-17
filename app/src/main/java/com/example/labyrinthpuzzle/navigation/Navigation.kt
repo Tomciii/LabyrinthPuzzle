@@ -16,6 +16,14 @@ fun Navigation() {
             HomeScreen(navController = navController)
         }
 
+        composable(route = Screen.HowToScreen.route){
+            HowToScreen(navController = navController)
+        }
+
+        composable(route = Screen.SettingsScreen.route){
+            SettingsScreen(navController = navController)
+        }
+
         composable(route = Screen.PuzzleScreen.route){
             EightTilePuzzleScreen(navController = navController)
         }

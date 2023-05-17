@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.widgets.HomeTopAppBar
+import kotlin.system.exitProcess
 
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController()){
@@ -28,10 +29,37 @@ fun MainContent(
     modifier: Modifier,
     navController: NavController
 ) {
-Button(onClick = { navController.navigate(Screen.LabyrinthScreen.route) }) {
-    Text(text = "Start", modifier = Modifier
-        .width(100.dp)
-        .padding(4.dp))
+    Column() {
+        Row() {
+            Button(onClick = { navController.navigate(Screen.LabyrinthScreen.route) }) {
+                Text(text = "Start", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
+        Row() {
+            Button(onClick = { navController.navigate(Screen.HowToScreen.route) }) {
+                Text(text = "How To", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
 
-}
+            }
+        }
+        Row() {
+            Button(onClick = { navController.navigate(Screen.SettingsScreen.route) }) {
+                Text(text = "Settings", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
+        Row() {
+            Button(onClick = {
+                exitProcess(0)
+            }) {
+                Text(text = "Exit", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
+    }
 }
