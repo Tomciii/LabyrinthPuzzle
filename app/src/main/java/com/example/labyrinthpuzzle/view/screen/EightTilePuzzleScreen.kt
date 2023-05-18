@@ -25,10 +25,10 @@ import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun EightTilePuzzleScreen(
     navController: NavController = rememberNavController(),
@@ -38,11 +38,13 @@ fun EightTilePuzzleScreen(
     val viewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    var eighttilePuzzle: MutableState<Eight?> = remember { mutableStateOf(Eight(0, listOf("0","1","2","3","4","5","6","7","8"),false)) }
+    val updatedEightTilePuzzleID = rememberUpdatedState(eightTilePuzzleID)
 
-    LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO){
-            eighttilePuzzle = viewModel.getEightTilePuzzleById(eightTilePuzzleID.toString())
+    var eightTile by remember { mutableStateOf<Eight?>(null) }
+
+    LaunchedEffect(updatedEightTilePuzzleID.value) {
+        withContext(Dispatchers.IO) {
+            eightTile = viewModel.getEightTilePuzzleById(updatedEightTilePuzzleID.value.toString())
         }
     }
 
@@ -50,7 +52,7 @@ fun EightTilePuzzleScreen(
             SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
                 Text(text = "Eight Tiles Puzzle")
             }
-                EightTileScreen(eighttilePuzzle.value, navController, viewModel)
+                eightTile?.let {EightTileScreen(eightTile, navController, viewModel) }
         }
 
 }

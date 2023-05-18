@@ -1,15 +1,17 @@
 package com.example.labyrinthpuzzle.viewModels
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.labyrinthpuzzle.model.models.Eight
 import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 import kotlinx.coroutines.flow.Flow
 
+
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
-    fun getEightTilePuzzleById(puzzleId: String): MutableState<Eight?> {
-        return mutableStateOf(repository.getEightTilePuzzlebyId(puzzleId.toInt()))
+    var eightPuzzle = MutableLiveData<Eight>()
+    fun getEightTilePuzzleById(puzzleId: String) : Eight? {
+        return repository.getEightTilePuzzlebyId(puzzleId.toInt())
     }
 
     fun convertListTo2DArray(list: List<String>): Array<Array<Int?>> {
