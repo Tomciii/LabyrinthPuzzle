@@ -5,8 +5,10 @@ import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -39,40 +41,52 @@ fun MainContent(
     modifier: Modifier,
     navController: NavController
 ) {
-    Column() {
-        Row() {
-            Button(onClick = {
-                var labyrinthId = "1"
-                navController.navigate("labyrinth/$labyrinthId")
-            }) {
-                Text(text = "Start", modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp))
+    Box(modifier.fillMaxSize()){
+        Column(modifier = Modifier.align(Alignment.Center)) {
+            Row() {
+                Button(onClick = {
+                    var labyrinthId = "1"
+                    navController.navigate("labyrinth/$labyrinthId")
+                }) {
+                    Text(text = "Start", modifier = Modifier
+                        .width(100.dp)
+                        .padding(4.dp),
+                        textAlign = TextAlign.Center
+                        )
+                }
             }
-        }
-        Row() {
-            Button(onClick = { navController.navigate(Screen.HowToScreen.route) }) {
-                Text(text = "How To", modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp))
+            Row() {
+                Button(onClick = { navController.navigate(Screen.HowToScreen.route) }) {
+                    Text(text = "How To", modifier = Modifier
+                        .width(100.dp)
+                        .padding(4.dp),
+                        textAlign = TextAlign.Center
+                    )
 
+                }
             }
-        }
-        Row() {
-            Button(onClick = { navController.navigate(Screen.SettingsScreen.route) }) {
-                Text(text = "Settings", modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp))
+            Row() {
+                Button(onClick = { navController.navigate(Screen.SettingsScreen.route) }) {
+                    Text(text = "Settings", modifier = Modifier
+                        .width(100.dp)
+                        .padding(4.dp),
+                        textAlign = TextAlign.Center
+                    )
+
+                }
             }
-        }
-        Row() {
-            Button(onClick = {
-                exitProcess(0)
-            }) {
-                Text(text = "Exit", modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp))
+            Row() {
+                Button(onClick = {
+                    exitProcess(0)
+                }) {
+                    Text(text = "Exit", modifier = Modifier
+                        .width(100.dp)
+                        .padding(4.dp),
+                        textAlign = TextAlign.Center
+                        )
+                }
             }
         }
     }
+
 }

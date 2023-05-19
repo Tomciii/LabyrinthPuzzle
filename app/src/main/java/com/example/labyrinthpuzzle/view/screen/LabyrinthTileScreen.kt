@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -63,7 +64,9 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
             Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.up.toString())) }, modifier = Modifier.align(Alignment.TopCenter)) {
                 Text(text = "Open Puzzle", modifier = Modifier
                     .width(100.dp)
-                    .padding(4.dp))
+                    .padding(4.dp),
+                    textAlign = TextAlign.Center
+                )
             }
         }
 
@@ -71,14 +74,18 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
             Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.left.toString())) }, modifier = Modifier.align(Alignment.CenterStart)) {
                 Text(text = tile!!.up.toString(), modifier = Modifier
                     .width(100.dp)
-                    .padding(4.dp))
+                    .padding(4.dp),
+                    textAlign = TextAlign.Center
+                )
             }
         }
         if (!tile!!.right.equals(0)) {
             Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.right.toString())) }, modifier = Modifier.align(Alignment.CenterEnd)) {
                 Text(text = "Center End", modifier = Modifier
                     .width(100.dp)
-                    .padding(4.dp))
+                    .padding(4.dp),
+                    textAlign = TextAlign.Center
+                )
             }
         }
 
@@ -86,7 +93,9 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
             Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.down.toString())) }, modifier = Modifier.align(Alignment.BottomCenter)) {
                 Text(text = "Bottom Center", modifier = Modifier
                     .width(100.dp)
-                    .padding(4.dp))
+                    .padding(4.dp),
+                    textAlign = TextAlign.Center
+                )
             }
         }
 
