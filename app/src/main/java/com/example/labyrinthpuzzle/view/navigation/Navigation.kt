@@ -21,6 +21,7 @@ import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
 fun Navigation() {
     val navController = rememberNavController()
     val labyrinthViewModel: LabyrinthViewModel = viewModel(factory = InjectorUtils.provideLabyrinthViewModel(LocalContext.current))
+
     NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
         composable(route = Screen.HomeScreen.route){
             HomeScreen(navController = navController)
@@ -42,8 +43,14 @@ fun Navigation() {
             ViewLabyrinthScreen(navController = navController)
         }
 
-        composable(route = Screen.PuzzleScreen.route){
-            EightTilePuzzleScreen(navController = navController)
+        composable(
+            route = Screen.PuzzleScreen.route,
+            arguments = listOf(navArgument(name = PUZZLE_ARCHETYPE_ID) {type = NavType.StringType}, navArgument(name = PUZZLE_ID) {type = NavType.StringType})
+        ){ backStackEntry ->    // backstack contains all information from navhost
+            PuzzleScreen(
+                navController = navController,
+                backStackEntry.arguments?.getString(PUZZLE_ARCHETYPE_ID),
+                backStackEntry.arguments?.getString(PUZZLE_ID))
         }
 
         composable(

@@ -19,5 +19,13 @@ sealed class Screen (val route: String) {
         }
     }
 
-    object PuzzleScreen : Screen("puzzle/{$PUZZLE_ARCHETYPE_ID}/{$PUZZLE_ID}")
+    object PuzzleScreen : Screen("puzzle/{$PUZZLE_ARCHETYPE_ID}/{$PUZZLE_ID}") {
+
+        fun withIds(archetypeId: String, puzzleId: String): String {
+            var routeWithIds = this.route
+            routeWithIds = routeWithIds.replace("{$PUZZLE_ARCHETYPE_ID}", archetypeId)
+            routeWithIds = routeWithIds.replace("{$PUZZLE_ID}", puzzleId)
+            return routeWithIds
+        }
+    }
 }
