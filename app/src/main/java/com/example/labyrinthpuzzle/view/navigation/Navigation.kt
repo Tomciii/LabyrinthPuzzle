@@ -43,10 +43,10 @@ fun Navigation() {
 
         composable(
             Screen.LabyrinthTileScreen.route,
-            arguments = listOf(navArgument(name = LABYRINTH_TILE_ID) {type = NavType.StringType})
+            arguments = listOf(navArgument(name = LABYRINTH_TILE_ID) {type = NavType.IntType})
         ) { backStackEntry ->    // backstack contains all information from navhost
             LabyrinthTileScreen(
-                navController = navController, backStackEntry.arguments?.getString(
+                navController = navController, backStackEntry.arguments?.getInt(
                     LABYRINTH_TILE_ID
                 ))   // get the argument from navhost that will be passed
         }
