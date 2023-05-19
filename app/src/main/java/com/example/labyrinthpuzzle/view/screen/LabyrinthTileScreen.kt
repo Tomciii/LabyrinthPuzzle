@@ -1,6 +1,5 @@
 package com.example.labyrinthpuzzle.view.screen
 
-import android.graphics.Paint.Align
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -12,13 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.model.models.LabyrinthTile
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
+import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,9 +28,16 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
     val labyrinthViewModel: LabyrinthViewModel = viewModel(factory = InjectorUtils.provideLabyrinthViewModel(
         LocalContext.current))
 
+    val eightTilesPuzzleViewModel: EightTilesPuzzleViewModel =
+        viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
+
     var updatedLabyrinthTileID = rememberUpdatedState(labyrinthId)
 
     var tile by remember { mutableStateOf<LabyrinthTile?>(null) }
+    var isUpSolved by remember { mutableStateOf<Boolean>(false) }
+    var isDownSolved by remember { mutableStateOf<Boolean>(false) }
+    var isLeftSolved by remember { mutableStateOf<Boolean>(false) }
+    var isRightSolved by remember { mutableStateOf<Boolean>(false) }
 
     LaunchedEffect(updatedLabyrinthTileID.value) {
         withContext(Dispatchers.IO) {
@@ -52,12 +58,30 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
 @Composable
 fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navController: NavController) {
 
+    var tile by remember { mutableStateOf(labyrinthTile) }
+    val eightTilesPuzzleViewModel: EightTilesPuzzleViewModel =
+        viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    var tile by remember {
-        mutableStateOf(labyrinthTile)
+    var isUpSolved by remember { mutableStateOf<Boolean>(false) }
+    var isDownSolved by remember { mutableStateOf<Boolean>(false) }
+    var isLeftSolved by remember { mutableStateOf<Boolean>(false) }
+    var isRightSolved by remember { mutableStateOf<Boolean>(false) }
+
+    var updatedIsUpSolved = rememberUpdatedState(tile!!.up)
+    var updatedIsDownSolved = rememberUpdatedState(tile!!.down)
+    var updatedIsLeftSolved = rememberUpdatedState(tile!!.left)
+    var updatedIsRightSolved = rememberUpdatedState(tile!!.right)
+
+    LaunchedEffect(updatedIsUpSolved.value, updatedIsDownSolved.value, updatedIsLeftSolved.value, updatedIsRightSolved.value) {
+        withContext(Dispatchers.IO) {
+            isUpSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsUpSolved.value)
+            isDownSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsDownSolved.value)
+            isLeftSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsLeftSolved.value)
+            isRightSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsRightSolved.value)
+        }
     }
 
-    Log.d("Test :)", tile.toString())
+    Log.d("Test :)", isUpSolved.toString())
 
     Box(Modifier.fillMaxSize()){
         if (!tile!!.up.equals(0)) {
@@ -79,6 +103,7 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
                 )
             }
         }
+
         if (!tile!!.right.equals(0)) {
             Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.right.toString())) }, modifier = Modifier.align(Alignment.CenterEnd)) {
                 Text(text = "Center End", modifier = Modifier
@@ -98,6 +123,5 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
                 )
             }
         }
-
     }
 }

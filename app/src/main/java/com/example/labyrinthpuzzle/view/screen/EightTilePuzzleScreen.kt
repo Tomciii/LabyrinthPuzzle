@@ -161,7 +161,7 @@ fun EightTileScreen(
             }
         }
 
-        if (viewModel.isPuzzleSolved(tiles) || eightTilePuzzleInstance!!.isSolved) {
+        if (viewModel.isPuzzleInCorrectOrder(tiles) || eightTilePuzzleInstance!!.isSolved) {
             Button(onClick = { navController.popBackStack() }, enabled = true) {
                 Text("Puzzle Solved!")
             }

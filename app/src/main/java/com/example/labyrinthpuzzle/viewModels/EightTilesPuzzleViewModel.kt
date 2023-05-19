@@ -1,11 +1,9 @@
 package com.example.labyrinthpuzzle.viewModels
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.labyrinthpuzzle.model.models.Eight
 import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
-import kotlinx.coroutines.flow.Flow
 
 
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
@@ -30,7 +28,7 @@ class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepositor
         repository.update(eightTile)
     }
 
-    fun isPuzzleSolved(arr: Array<Array<Int?>>): Boolean {
+    fun isPuzzleInCorrectOrder(arr: Array<Array<Int?>>): Boolean {
         var expectedValue = 0
         for (i in 0 until arr.size) {
             for (j in 0 until arr[i].size) {
@@ -41,5 +39,9 @@ class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepositor
             }
         }
         return true
+    }
+
+    fun isPuzzleSolved(id: Int): Boolean {
+        return repository.isSolved(id)
     }
 }
