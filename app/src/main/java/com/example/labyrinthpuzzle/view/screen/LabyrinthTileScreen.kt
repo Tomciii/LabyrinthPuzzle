@@ -1,12 +1,13 @@
 package com.example.labyrinthpuzzle.view.screen
 
+import android.graphics.Paint.Align
 import android.util.Log
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,7 @@ import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.system.exitProcess
 
 @Composable
 fun LabyrinthTileScreen(navController: NavController = rememberNavController(), labyrinthId: Int? = 1){
@@ -34,7 +36,7 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
     LaunchedEffect(updatedLabyrinthTileID.value) {
         withContext(Dispatchers.IO) {
             tile = labyrinthViewModel.getLabyrinthTileById(updatedLabyrinthTileID.value!!.toInt())
-            Log.d("Test :(", tile.toString())
+            Log.d("Test", tile.toString())
         }
     }
 
@@ -55,11 +57,39 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
         mutableStateOf(labyrinthTile)
     }
 
+    Log.d("Test :)", tile.toString())
 
-    Button(onClick = { navController.navigate(Screen.PuzzleScreen.route) }) {
-        Text(text = tile!!.id.toString(), modifier = Modifier
-            .width(100.dp)
-            .padding(4.dp))
+    Box(Modifier.fillMaxSize()){
+        if (!tile!!.up.equals(0)) {
+            Button(onClick = { navController.navigate(Screen.PuzzleScreen.route) }, modifier = Modifier.align(Alignment.TopCenter)) {
+                Text(text = "Open Puzzle", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
+
+        if (!tile!!.left.equals(0)) {
+            Button(onClick = { navController.navigate(Screen.PuzzleScreen.route) }, modifier = Modifier.align(Alignment.CenterStart)) {
+                Text(text = tile!!.up.toString(), modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
+        if (!tile!!.right.equals(0)) {
+            Button(onClick = { navController.navigate(Screen.PuzzleScreen.route) }, modifier = Modifier.align(Alignment.CenterEnd)) {
+                Text(text = "Center End", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
+
+        if (!tile!!.down.equals(0)) {
+            Button(onClick = { navController.navigate(Screen.PuzzleScreen.route) }, modifier = Modifier.align(Alignment.BottomCenter)) {
+                Text(text = "Bottom Center", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
 
     }
 }
