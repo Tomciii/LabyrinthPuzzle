@@ -19,4 +19,10 @@ interface MemoryPuzzleDao {
     @Query("SELECT * FROM memory where id=:id")
     fun getMemoryPuzzleById(id: Int): Memory
 
+    @Query("SELECT isSolved FROM memory where id=:id")
+    fun isSolved(id: Int): Boolean
+
+    @Query("UPDATE memory SET isSolved = 1 where id=:id")
+    fun updateToSolved(id: Int)
+
 }

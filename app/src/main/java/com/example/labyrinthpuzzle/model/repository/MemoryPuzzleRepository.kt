@@ -6,5 +6,9 @@ import com.example.labyrinthpuzzle.model.models.Memory
 class MemoryPuzzleRepository(private val dao: MemoryPuzzleDao) {
 
     suspend fun update(memoryPuzzle: Memory) = dao.update(memoryPuzzle)
+
     fun getMemoryPuzzlebyId(id: Int) = dao.getMemoryPuzzleById(id)
+
+    fun isSolved(id: Int) = dao.isSolved(id)
+    fun updateToSolved(id: Int) = dao.updateToSolved(id)
 }
