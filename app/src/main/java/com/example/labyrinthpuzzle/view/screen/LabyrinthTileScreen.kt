@@ -20,6 +20,8 @@ import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
@@ -27,9 +29,6 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
 
     val labyrinthViewModel: LabyrinthViewModel = viewModel(factory = InjectorUtils.provideLabyrinthViewModel(
         LocalContext.current))
-
-    val eightTilesPuzzleViewModel: EightTilesPuzzleViewModel =
-        viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
     var updatedLabyrinthTileID = rememberUpdatedState(labyrinthId)
 
@@ -47,7 +46,15 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
             Text(text="Labyrinth")
         }
     }) { padding ->
-        tile?.let { LabyrinthTile(tile, modifier = Modifier.padding(padding), navController) }
+        tile?.let {
+            LabyrinthTile(tile, modifier = Modifier.padding(padding), navController)
+
+            //only for testing
+            GlobalScope.launch(Dispatchers.IO){
+            labyrinthViewModel.printArray()
+            }
+
+        }
     }
 }
 
@@ -96,7 +103,7 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
                 //TODO: Add Back Button
 
             } else {
-                // check if isSolved -> display "Got to next Tile"
+                // check if isSolved -> display "Go to next Tile"
                 // if not -> Open Puzzle
                 if (isSolved.equals(true)) {
                     Button(
