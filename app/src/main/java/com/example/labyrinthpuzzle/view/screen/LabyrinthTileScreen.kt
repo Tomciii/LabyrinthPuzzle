@@ -34,10 +34,6 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
     var updatedLabyrinthTileID = rememberUpdatedState(labyrinthId)
 
     var tile by remember { mutableStateOf<LabyrinthTile?>(null) }
-    var isUpSolved by remember { mutableStateOf<Boolean>(false) }
-    var isDownSolved by remember { mutableStateOf<Boolean>(false) }
-    var isLeftSolved by remember { mutableStateOf<Boolean>(false) }
-    var isRightSolved by remember { mutableStateOf<Boolean>(false) }
 
     LaunchedEffect(updatedLabyrinthTileID.value) {
         withContext(Dispatchers.IO) {
@@ -83,44 +79,54 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
 
     Log.d("Test :)", isUpSolved.toString())
 
-    Box(Modifier.fillMaxSize()){
-        if (!tile!!.up.equals(0)) {
-            Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.up.toString())) }, modifier = Modifier.align(Alignment.TopCenter)) {
-                Text(text = "Open Puzzle", modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp),
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
+    Box(Modifier.fillMaxSize()) {
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.left, alignment = Alignment.CenterStart)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.right, alignment = Alignment.CenterEnd)
+    }
+}
 
-        if (!tile!!.left.equals(0)) {
-            Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.left.toString())) }, modifier = Modifier.align(Alignment.CenterStart)) {
-                Text(text = tile!!.up.toString(), modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp),
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
+@Composable
+fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: Boolean, direction: Int, alignment: Alignment) {
 
-        if (!tile!!.right.equals(0)) {
-            Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.right.toString())) }, modifier = Modifier.align(Alignment.CenterEnd)) {
-                Text(text = "Center End", modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp),
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
+    Box(modifier = Modifier.fillMaxSize()){
+        if (!direction.equals(0)) {
+            if (direction.equals(99)) {
+                //TODO: Add Back Button
 
-        if (!tile!!.down.equals(0)) {
-            Button(onClick = { navController.navigate(Screen.PuzzleScreen.withIds(tile!!.puzzleArchetypeId.toString(), tile!!.down.toString())) }, modifier = Modifier.align(Alignment.BottomCenter)) {
-                Text(text = "Bottom Center", modifier = Modifier
-                    .width(100.dp)
-                    .padding(4.dp),
-                    textAlign = TextAlign.Center
-                )
+            } else {
+                // check if isSolved -> display "Got to next Tile"
+                // if not -> Open Puzzle
+                if (isSolved.equals(true)) {
+                    Button(
+                        onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((tile!!.id+1).toString())) },
+                        modifier = Modifier.align(alignment)
+                    ) {
+                        Text(
+                            text = "Go to next Tile", modifier = Modifier
+                                .width(100.dp)
+                                .padding(4.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                } else {
+                    Button(onClick = {
+                        navController.navigate(
+                            Screen.PuzzleScreen.withIds(
+                                tile!!.puzzleArchetypeId.toString(),
+                                direction.toString()
+                            )
+                        )
+                    }, modifier = Modifier.align(alignment)) {
+                        Text(
+                            text = "Open Puzzle", modifier = Modifier
+                                .width(100.dp)
+                                .padding(4.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
             }
         }
     }

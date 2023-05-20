@@ -19,6 +19,9 @@ interface LabyrinthDao {
     @Update
     suspend fun update(labyrinth: LabyrinthTile)
 
-    @Query("SELECT * FROM labyrinthtile where id=:id")
+    @Query("SELECT * FROM labyrinthtile WHERE id=:id")
     fun getLabyrinthById(id: Int): LabyrinthTile?
+
+    @Query("SELECT * FROM labyrinthtile")
+    fun getAllTiles(): List<LabyrinthTile>
 }

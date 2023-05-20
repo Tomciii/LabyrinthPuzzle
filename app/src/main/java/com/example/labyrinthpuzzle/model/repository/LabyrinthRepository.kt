@@ -14,4 +14,7 @@ class LabyrinthRepository(private val labyrinthDao: LabyrinthDao) {
         return labyrinthDao.getLabyrinthById(id)
     }
 
+    fun getAllTiles (): List<LabyrinthTile> {
+        return labyrinthDao.getAllTiles()
+    }
 }
