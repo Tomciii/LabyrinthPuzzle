@@ -8,4 +8,11 @@ class MemoryPuzzleViewModel(private val repository: MemoryPuzzleRepository) : Vi
     fun getMemoryPuzzleById(puzzleId: String): Memory {
        return repository.getMemoryPuzzlebyId(puzzleId.toInt())
     }
+
+    fun setPuzzleToSolved(id: Int){
+        repository.updateToSolved(id)
+    }
+    fun isPuzzleSolved(id: Int): Boolean {
+        return repository.isSolved(id)
+    }
 }

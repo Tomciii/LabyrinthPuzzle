@@ -21,7 +21,7 @@ import java.io.InputStreamReader
 
 @Database(
     entities = [Eight::class, Memory::class, LabyrinthTile::class],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(CustomConverters::class)
@@ -66,7 +66,8 @@ abstract class AppDatabase : RoomDatabase() {
                     var line: String?
 
                     while (bufferedReader.readLine().also { line = it } != null) {
-                        database.openHelper.writableDatabase.execSQL(line.toString())
+                        if (!line.toString().startsWith("--") && !line.toString().isBlank())
+                            database.openHelper.writableDatabase.execSQL(line.toString())
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()

@@ -35,10 +35,6 @@ fun Navigation() {
             SettingsScreen(navController = navController)
         }
 
-        composable(route = Screen.PuzzleScreen.route){
-            EightTilePuzzleScreen(navController = navController)
-        }
-
         composable(route = Screen.ViewLabyrinthScreen.route){
             ViewLabyrinthScreen(navController = navController)
         }
