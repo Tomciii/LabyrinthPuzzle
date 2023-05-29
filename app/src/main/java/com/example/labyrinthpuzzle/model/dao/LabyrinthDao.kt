@@ -24,4 +24,7 @@ interface LabyrinthDao {
 
     @Query("SELECT * FROM labyrinthtile")
     fun getAllTiles(): List<LabyrinthTile>
+
+    @Query("SELECT id FROM labyrinthtile WHERE xCoordinate=:xCoordinate AND yCoordinate=:yCoordinate")
+    fun getLabyrinthIdByCoordinates(xCoordinate: Int, yCoordinate: Int) : Int
 }

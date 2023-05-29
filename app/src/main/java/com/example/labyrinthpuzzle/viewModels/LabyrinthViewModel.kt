@@ -16,6 +16,10 @@ class LabyrinthViewModel(private val repository: LabyrinthRepository): ViewModel
         repository.update(labyrinthTile)
     }
 
+    fun getPreviousTileIdByCoordinates(xCoordinates: Int, yCoordinates: Int) : Int {
+        return repository.getLabyrinthTileIdByCoordiantes(xCoordinates, yCoordinates)
+    }
+
     fun getAllTiles (): Array<Array<LabyrinthTile?>> {
         val list = repository.getAllTiles()
 

@@ -17,4 +17,8 @@ class LabyrinthRepository(private val labyrinthDao: LabyrinthDao) {
     fun getAllTiles (): List<LabyrinthTile> {
         return labyrinthDao.getAllTiles()
     }
+
+    fun getLabyrinthTileIdByCoordiantes(xCoordinates: Int, yCoordinates: Int) : Int {
+        return labyrinthDao.getLabyrinthIdByCoordinates(xCoordinates, yCoordinates)
+    }
 }

@@ -47,7 +47,7 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
         }
     }) { padding ->
         tile?.let {
-            LabyrinthTile(tile, modifier = Modifier.padding(padding), navController)
+            LabyrinthTile(tile, modifier = Modifier.padding(padding), navController, labyrinthViewModel)
 
             //only for testing
             GlobalScope.launch(Dispatchers.IO){
@@ -59,7 +59,7 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
 }
 
 @Composable
-fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navController: NavController) {
+fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navController: NavController, viewModel: LabyrinthViewModel) {
 
     var tile by remember { mutableStateOf(labyrinthTile) }
     val eightTilesPuzzleViewModel: EightTilesPuzzleViewModel =
@@ -87,21 +87,48 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
     Log.d("Test :)", isUpSolved.toString())
 
     Box(Modifier.fillMaxSize()) {
-        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter)
-        PuzzleButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter)
-        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.left, alignment = Alignment.CenterStart)
-        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.right, alignment = Alignment.CenterEnd)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter, viewModel = viewModel)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.left, alignment = Alignment.CenterStart, viewModel = viewModel)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.right, alignment = Alignment.CenterEnd, viewModel = viewModel)
     }
 }
 
 @Composable
-fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: Boolean, direction: Int, alignment: Alignment) {
+fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: Boolean, direction: Int, alignment: Alignment, viewModel: LabyrinthViewModel) {
+
+    var backId by remember { mutableStateOf(1) }
+    var updatedbackId = rememberUpdatedState(1)
+
+    LaunchedEffect(updatedbackId.value) {
+        withContext(Dispatchers.IO) {
+            if (alignment == Alignment.TopCenter){
+                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate + 1)
+            } else if (alignment == Alignment.BottomCenter){
+                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate - 1)
+            } else if (alignment == Alignment.CenterStart){
+                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate - 1, tile!!.yCoordinate)
+            } else if (alignment == Alignment.CenterEnd){
+                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate + 1, tile!!.yCoordinate)
+            }
+        }
+    }
+
 
     Box(modifier = Modifier.fillMaxSize()){
         if (!direction.equals(0)) {
             if (direction.equals(99)) {
-                //TODO: Add Back Button
-
+                Button(
+                    onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((backId).toString())) },
+                    modifier = Modifier.align(alignment)
+                ) {
+                    Text(
+                        text = "Back", modifier = Modifier
+                            .width(100.dp)
+                            .padding(4.dp),
+                        textAlign = TextAlign.Center
+                    )
+                }
             } else {
                 // check if isSolved -> display "Go to next Tile"
                 // if not -> Open Puzzle
@@ -137,4 +164,8 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
             }
         }
     }
+}
+
+fun getBackId(){
+
 }
