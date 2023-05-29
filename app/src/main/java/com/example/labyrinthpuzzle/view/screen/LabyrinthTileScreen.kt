@@ -87,6 +87,7 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
     Log.d("Test :)", isUpSolved.toString())
 
     Box(Modifier.fillMaxSize()) {
+        Text(text = "Tile ID " + tile!!.id.toString()) // For testing
         PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)
         PuzzleButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter, viewModel = viewModel)
         PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.left, alignment = Alignment.CenterStart, viewModel = viewModel)
@@ -97,19 +98,20 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
 @Composable
 fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: Boolean, direction: Int, alignment: Alignment, viewModel: LabyrinthViewModel) {
 
-    var backId by remember { mutableStateOf(1) }
-    var updatedbackId = rememberUpdatedState(1)
+    // The id of the Labyrinth Tile that you click on, takes care of back button as well as next Labyrinth
+    var clickedId by remember { mutableStateOf(1) }
+    var updatedclickedId = rememberUpdatedState(1)
 
-    LaunchedEffect(updatedbackId.value) {
+    LaunchedEffect(updatedclickedId.value) {
         withContext(Dispatchers.IO) {
             if (alignment == Alignment.TopCenter){
-                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate + 1)
+                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate + 1)
             } else if (alignment == Alignment.BottomCenter){
-                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate - 1)
+                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate - 1)
             } else if (alignment == Alignment.CenterStart){
-                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate - 1, tile!!.yCoordinate)
+                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate - 1, tile!!.yCoordinate)
             } else if (alignment == Alignment.CenterEnd){
-                backId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate + 1, tile!!.yCoordinate)
+                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate + 1, tile!!.yCoordinate)
             }
         }
     }
@@ -119,7 +121,7 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
         if (!direction.equals(0)) {
             if (direction.equals(99)) {
                 Button(
-                    onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((backId).toString())) },
+                    onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((clickedId).toString())) },
                     modifier = Modifier.align(alignment)
                 ) {
                     Text(
@@ -134,7 +136,7 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
                 // if not -> Open Puzzle
                 if (isSolved.equals(true)) {
                     Button(
-                        onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((tile!!.id+1).toString())) },
+                        onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((clickedId).toString())) },
                         modifier = Modifier.align(alignment)
                     ) {
                         Text(
@@ -164,8 +166,4 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
             }
         }
     }
-}
-
-fun getBackId(){
-
 }
