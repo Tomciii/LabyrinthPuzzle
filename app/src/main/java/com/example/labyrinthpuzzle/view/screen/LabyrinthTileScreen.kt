@@ -1,6 +1,5 @@
 package com.example.labyrinthpuzzle.view.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
@@ -37,7 +36,6 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
     LaunchedEffect(updatedLabyrinthTileID.value) {
         withContext(Dispatchers.IO) {
             tile = labyrinthViewModel.getLabyrinthTileById(updatedLabyrinthTileID.value!!.toInt())
-            Log.d("Test", tile.toString())
         }
     }
 
@@ -84,14 +82,13 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
         }
     }
 
-    Log.d("Test :)", isUpSolved.toString())
 
     Box(Modifier.fillMaxSize()) {
         Text(text = "Tile ID " + tile!!.id.toString()) // For testing
         PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)
         PuzzleButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter, viewModel = viewModel)
-        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.left, alignment = Alignment.CenterStart, viewModel = viewModel)
-        PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.right, alignment = Alignment.CenterEnd, viewModel = viewModel)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isLeftSolved, direction = tile!!.left, alignment = Alignment.CenterStart, viewModel = viewModel)
+        PuzzleButton(navController = navController, tile = tile!!, isSolved = isRightSolved, direction = tile!!.right, alignment = Alignment.CenterEnd, viewModel = viewModel)
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.labyrinthpuzzle.view.screen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -32,7 +33,7 @@ import kotlinx.coroutines.withContext
 @Composable
 fun EightTilePuzzleScreen(
     navController: NavController = rememberNavController(),
-    eightTilePuzzleID: String? = "1"
+    eightTilePuzzleID: String?
 ) {
 
     val viewModel: EightTilesPuzzleViewModel =
@@ -47,7 +48,7 @@ fun EightTilePuzzleScreen(
             eightTile = viewModel.getEightTilePuzzleById(updatedEightTilePuzzleID.value.toString())
         }
     }
-
+        Log.d("", "Test: EightTiles ID:" + eightTilePuzzleID)
         Surface {
             SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
                 Text(text = "Eight Tiles Puzzle")
