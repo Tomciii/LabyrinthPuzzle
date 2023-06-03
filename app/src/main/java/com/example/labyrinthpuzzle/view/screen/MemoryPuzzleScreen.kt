@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.labyrinthpuzzle.model.models.Eight
 import com.example.labyrinthpuzzle.model.models.Memory
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
@@ -73,6 +72,8 @@ fun MemoryPuzzle(
     val columns = 2
 
     val grid = Array(rows) { IntArray(columns) }
+    val selectedBoxes = remember { mutableStateListOf<Pair<Int, Int>>() }
+    val matchedBoxes = remember { mutableStateListOf<Pair<Int, Int>>() }
 
     Column(
         modifier = Modifier
@@ -98,18 +99,50 @@ fun MemoryPuzzle(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     for (j in 0 until columns) {
+                        var boxIndex = i + j
+
+                        if (i == 1){
+                            boxIndex++
+                        } else if (i == 2){
+                            boxIndex += 2
+                        }
+
+                        val box = i to j
+                        val isSelected = remember { mutableStateOf(selectedBoxes.contains(i to j)) }
+                        val isMatched = remember { mutableStateOf(matchedBoxes.contains(box)) }
+
+
                             Box(
                                 modifier = Modifier
                                     .size(130.dp)
                                     .padding(8.dp)
-                                    .background(Color.Gray, RectangleShape)
+                                    .background(
+                                        if (isMatched.value) Color.Green
+                                        else if (isSelected.value) Color.White
+                                        else Color.Gray
+                                        , RectangleShape)
                                     .clickable {
+                                        if (isSelected.value || isMatched.value) {
+                                            return@clickable
+                                        }
 
-                                        grid[i][j] = i * columns + j
+                                        if (selectedBoxes.size < 2) {
+                                            selectedBoxes.add(box)
+                                            isSelected.value = true
+
+                                            if (selectedBoxes.size == 2) {
+                                                val isCorrect = checkMatch(selectedBoxes[0], selectedBoxes[1], memoryPuzzleInstance!!.grid)
+                                                if (isCorrect) {
+                                                    isMatched.value = true
+                                                }
+                                                selectedBoxes.clear()
+                                            }
+                                        }
                                     }
                             ) {
+
                                 Text(
-                                    text = "Box ($i, $j)",
+                                    text = "Box Index ($box) -  ${memoryPuzzle!!.grid.get(boxIndex)}",
                                     modifier = Modifier.align(Alignment.Center)
                                 )
                             }
@@ -137,3 +170,24 @@ fun MemoryPuzzle(
             }
         }
 }}
+
+private fun checkMatch(box1: Pair<Int, Int>, box2: Pair<Int, Int>, grid:List<String>): Boolean {
+    var firstBoxIndex = box1.first + box1.second
+
+    if (box1.first == 1){
+        firstBoxIndex++
+    } else if (box1.first == 2){
+        firstBoxIndex += 2
+    }
+
+    var secondBoxIndex = box2.first + box2.second
+
+    if (box2.first == 1){
+        secondBoxIndex++
+    } else if (box2.first == 2){
+        secondBoxIndex += 2
+    }
+
+    return grid!!.get(firstBoxIndex) == grid!!.get(secondBoxIndex)
+
+}
