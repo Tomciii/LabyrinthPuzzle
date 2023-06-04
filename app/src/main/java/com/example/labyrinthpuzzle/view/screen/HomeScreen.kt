@@ -62,31 +62,44 @@ fun MainContent(
                         .padding(4.dp),
                         textAlign = TextAlign.Center
                     )
-
                 }
             }
             Row() {
-                Button(onClick = { navController.navigate(Screen.SettingsScreen.route) }) {
-                    Text(text = "Settings", modifier = Modifier
-                        .width(100.dp)
-                        .padding(4.dp),
+                Button(onClick = {
+                    navController.navigate("ViewLabyrinthScreen")
+                }) {
+                    Text(
+                        text = "View Labyrinth", modifier = Modifier
+                            .width(100.dp)
+                            .padding(4.dp),
                         textAlign = TextAlign.Center
                     )
-
+                }
+            }
+            Row() {
+                Button(onClick = {
+                    navController.navigate(Screen.SettingsScreen.route)
+                }) {
+                    Text(
+                        text = "Settings", modifier = Modifier
+                            .width(100.dp)
+                            .padding(4.dp),
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
             Row() {
                 Button(onClick = {
                     exitProcess(0)
                 }) {
-                    Text(text = "Exit", modifier = Modifier
-                        .width(100.dp)
-                        .padding(4.dp),
+                    Text(
+                        text = "Exit", modifier = Modifier
+                            .width(100.dp)
+                            .padding(4.dp),
                         textAlign = TextAlign.Center
-                        )
+                    )
                 }
             }
         }
     }
-
 }
