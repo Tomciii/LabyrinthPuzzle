@@ -62,9 +62,16 @@ fun MemoryPuzzle(
         mutableStateOf(memoryPuzzle)
     }
 
-    val solvedArrayState = MutableStateFlow(mutableStateListOf<Int?>(0, 0, 0, 0, 0, 0).toTypedArray())
+    val solvedArrayState = MutableStateFlow(mutableStateListOf<Int?>(0, 0, 0, 0, 0, 0))
+    val updatedsolvedArrayState = rememberUpdatedState(solvedArrayState)
+
     var solvedArray = solvedArrayState.value
 
+    LaunchedEffect(updatedsolvedArrayState.value) {
+        withContext(Dispatchers.IO) {
+            solvedArray = updatedsolvedArrayState.value.value
+        }
+    }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -133,6 +140,26 @@ fun MemoryPuzzle(
                                             if (selectedBoxes.size == 2) {
                                                 val isCorrect = checkMatch(selectedBoxes[0], selectedBoxes[1], memoryPuzzleInstance!!.grid)
                                                 if (isCorrect) {
+                                                    var firstBoxIndex = selectedBoxes[0].first + selectedBoxes[0].second
+
+                                                    if (selectedBoxes[0].first == 1){
+                                                        firstBoxIndex++
+                                                    } else if (selectedBoxes[0].first == 2){
+                                                        firstBoxIndex += 2
+                                                    }
+
+                                                    var secondBoxIndex = selectedBoxes[1].first + selectedBoxes[1].second
+
+                                                    if (selectedBoxes[1].first == 1){
+                                                        secondBoxIndex++
+                                                    } else if (selectedBoxes[1].first == 2){
+                                                        secondBoxIndex += 2
+                                                    }
+
+
+                                                    solvedArray[firstBoxIndex] = 1
+                                                    solvedArray[secondBoxIndex] = 1
+                                                    solvedArrayState.value = solvedArray
                                                     isMatched.value = true
                                                 }
                                                 selectedBoxes.clear()
@@ -152,7 +179,7 @@ fun MemoryPuzzle(
             }
         }
 
-        if (viewModel.isPuzzleInCorrectOrder(solvedArray)) {
+        if (viewModel.isPuzzleInCorrectOrder(solvedArray.toTypedArray())) {
             Button(onClick = { navController.popBackStack() }, enabled = true) {
                 Text("Puzzle Solved!")
             }
