@@ -167,11 +167,12 @@ fun MemoryPuzzle(
                                         }
                                     }
                             ) {
-
-                                Text(
-                                    text = "Box Index ($box) -  ${memoryPuzzle!!.grid.get(boxIndex)}",
-                                    modifier = Modifier.align(Alignment.Center)
-                                )
+                                if (isSelected.value || isMatched.value) {
+                                    Text(
+                                        text = "Box Index ($box) -  ${memoryPuzzle!!.grid.get(boxIndex)}",
+                                        modifier = Modifier.align(Alignment.Center)
+                                    )
+                                }
                             }
                     }
                 }
