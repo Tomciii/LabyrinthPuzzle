@@ -51,10 +51,7 @@ fun ViewLabyrinthScreen(
     Surface() {
         Column {
             SimpleTopAppBar(
-                navController = navController,
-                firstMenuItemClicked = { navController.navigate(Screen.ViewLabyrinthScreen.route)},
-                secondMenuItemClicked = { navController.navigate(Screen.HowToScreen.route)},
-                arrowBackClicked = { navController.popBackStack() }) {
+                navController = navController) {
                 androidx.compose.material.Text(text = "View Labyrinth")
             }
 

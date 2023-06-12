@@ -40,10 +40,7 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
     }
 
     Scaffold(topBar = {
-        SimpleTopAppBar(navController = navController,
-            firstMenuItemClicked = { navController.navigate(Screen.ViewLabyrinthScreen.route)},
-            secondMenuItemClicked = { navController.navigate(Screen.HowToScreen.route)},
-            arrowBackClicked = { navController.popBackStack() }){
+        SimpleTopAppBar(navController = navController){
             Text(text="Labyrinth")
         }
     }) { padding ->

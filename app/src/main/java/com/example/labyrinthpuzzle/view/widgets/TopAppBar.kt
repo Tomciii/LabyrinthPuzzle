@@ -17,11 +17,8 @@ import com.example.labyrinthpuzzle.view.screen.Screen
 @Composable
 fun SimpleTopAppBar(
     navController: NavController,
-    firstMenuItemClicked: () -> Unit = {},
-    secondMenuItemClicked: () -> Unit = {},
-    arrowBackClicked: () -> Unit = {},
     menuContent: @Composable () -> Unit = {
-        DropdownMenuItem(onClick = { firstMenuItemClicked() }) {
+        DropdownMenuItem(onClick = { navController.navigate(Screen.ViewLabyrinthScreen.route) }) {
             Row {
                 Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "View Labyrinth", modifier = Modifier.padding(4.dp))
                 Text(text = "View Labyrinth", modifier = Modifier
@@ -29,7 +26,7 @@ fun SimpleTopAppBar(
                     .padding(4.dp))
             }
         }
-        DropdownMenuItem(onClick = { secondMenuItemClicked() }) {
+        DropdownMenuItem(onClick = { navController.navigate(Screen.HowToScreen.route) }) {
             Row {
                 Icon(imageVector = Icons.Default.Favorite, contentDescription = "How To Play", modifier = Modifier.padding(4.dp))
                 Text(text = "How To Play", modifier = Modifier
@@ -49,7 +46,7 @@ fun SimpleTopAppBar(
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Arrow back",
-                modifier = Modifier.clickable { arrowBackClicked() }
+                modifier = Modifier.clickable { navController.popBackStack() }
             )
         },
         actions = {
