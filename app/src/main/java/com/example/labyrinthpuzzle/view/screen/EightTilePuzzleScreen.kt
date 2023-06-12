@@ -25,7 +25,6 @@ import com.example.labyrinthpuzzle.model.models.Eight
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.theme.Purple100
 import com.example.labyrinthpuzzle.view.theme.Purple150
-import com.example.labyrinthpuzzle.view.theme.Purple200
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
