@@ -1,5 +1,6 @@
 package com.example.labyrinthpuzzle.view.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
@@ -15,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.model.models.LabyrinthTile
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
+import com.example.labyrinthpuzzle.view.theme.Purple100
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
@@ -82,8 +84,9 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
         }
     }
 
-
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier
+        .fillMaxSize()
+        .background(color = Purple100)) {
         Text(text = "Tile ID " + tile!!.id.toString()) // For testing
         PuzzleButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)
         PuzzleButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter, viewModel = viewModel)
@@ -119,7 +122,7 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
             if (direction.equals(99)) {
                 Button(
                     onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((clickedId).toString())) },
-                    modifier = Modifier.align(alignment)
+                    modifier = Modifier.align(alignment).padding(15.dp)
                 ) {
                     Text(
                         text = "Back", modifier = Modifier
@@ -134,7 +137,7 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
                 if (isSolved.equals(true)) {
                     Button(
                         onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((clickedId).toString())) },
-                        modifier = Modifier.align(alignment)
+                        modifier = Modifier.align(alignment).padding(15.dp)
                     ) {
                         Text(
                             text = "Go to next Tile", modifier = Modifier
@@ -151,7 +154,7 @@ fun PuzzleButton (navController: NavController, tile: LabyrinthTile, isSolved: B
                                 direction.toString()
                             )
                         )
-                    }, modifier = Modifier.align(alignment)) {
+                    }, modifier = Modifier.align(alignment).padding(15.dp)) {
                         Text(
                             text = "Open Puzzle", modifier = Modifier
                                 .width(100.dp)

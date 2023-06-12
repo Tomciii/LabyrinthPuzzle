@@ -23,6 +23,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.model.models.Eight
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
+import com.example.labyrinthpuzzle.view.theme.Purple100
+import com.example.labyrinthpuzzle.view.theme.Purple150
+import com.example.labyrinthpuzzle.view.theme.Purple200
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +52,7 @@ fun EightTilePuzzleScreen(
         }
     }
         Log.d("", "Test: EightTiles ID:" + eightTilePuzzleID)
-        Surface {
+        Surface(color = Purple100) {
             SimpleTopAppBar(navController = navController) {
                 Text(text = "Eight Tiles Puzzle")
             }
@@ -87,11 +90,11 @@ fun EightTileScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp)
+            .background(Purple100))
         Box(
             modifier = Modifier
                 .height(380.dp)
-                .background(Color.LightGray)
                 .fillMaxWidth()
         ) {
             var num = 365 / 10
@@ -112,7 +115,7 @@ fun EightTileScreen(
 
                             val isSelectedTile = selectedTile == position
                             val backgroundColor =
-                                if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Color.LightGray
+                                if (tiles[i][j] == 0) Color.White else if (isSelectedTile) Color.White else Purple150
 
 
                             Box(

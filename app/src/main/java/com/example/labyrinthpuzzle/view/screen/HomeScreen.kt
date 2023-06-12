@@ -1,5 +1,6 @@
 package com.example.labyrinthpuzzle.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
@@ -17,6 +18,7 @@ import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.screen.Screen
 import com.example.labyrinthpuzzle.view.widgets.HomeTopAppBar
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
+import com.example.labyrinthpuzzle.view.theme.Purple100
 import kotlin.system.exitProcess
 
 @Composable
@@ -39,7 +41,9 @@ fun MainContent(
     modifier: Modifier,
     navController: NavController
 ) {
-    Box(modifier.fillMaxSize()){
+    Box(modifier
+        .fillMaxSize()
+        .background(color = Purple100)){
         Column(modifier = Modifier.align(Alignment.Center)) {
             Row() {
                 Button(onClick = {

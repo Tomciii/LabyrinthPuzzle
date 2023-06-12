@@ -2,6 +2,7 @@ package com.example.labyrinthpuzzle.view.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -14,10 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.labyrinthpuzzle.model.models.Memory
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
+import com.example.labyrinthpuzzle.view.theme.*
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +43,7 @@ fun MemoryPuzzleScreen (navController: NavController, memoryPuzzleId: String?){
         }
     }
 
-    Surface {
+    Surface(color = Purple100) {
         SimpleTopAppBar(navController = navController) {
             Text(text = "Memory Puzzle")
         }
@@ -123,10 +126,11 @@ fun MemoryPuzzle(
                                 modifier = Modifier
                                     .size(130.dp)
                                     .padding(8.dp)
+                                    .border(1.dp, Color.Black)
                                     .background(
-                                        if (isMatched.value) Color.Green
+                                        if (isMatched.value) Green100
                                         else if (isSelected.value) Color.White
-                                        else Color.Gray
+                                        else Purple150
                                         , RectangleShape)
                                     .clickable {
                                         if (isSelected.value || isMatched.value) {
@@ -169,8 +173,9 @@ fun MemoryPuzzle(
                             ) {
                                 if (isSelected.value || isMatched.value) {
                                     Text(
-                                        text = "Box Index ($box) -  ${memoryPuzzle!!.grid.get(boxIndex)}",
-                                        modifier = Modifier.align(Alignment.Center)
+                                        text = "${memoryPuzzle!!.grid.get(boxIndex)}",
+                                        modifier = Modifier.align(Alignment.Center),
+                                        fontSize = 24.sp
                                     )
                                 }
                             }
