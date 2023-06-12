@@ -50,7 +50,6 @@ fun EightTilePuzzleScreen(
             eightTile = viewModel.getEightTilePuzzleById(updatedEightTilePuzzleID.value.toString())
         }
     }
-        Log.d("", "Test: EightTiles ID:" + eightTilePuzzleID)
         Surface(color = Purple100) {
             SimpleTopAppBar(navController = navController) {
                 Text(text = "Eight Tiles Puzzle")
