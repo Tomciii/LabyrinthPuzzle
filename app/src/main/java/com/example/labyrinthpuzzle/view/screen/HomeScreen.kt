@@ -27,8 +27,7 @@ fun HomeScreen(navController: NavController = rememberNavController()){
 
     Scaffold(topBar = {
         HomeTopAppBar(
-            title = "Labyrinth Puzzle",
-            menuContent = {}
+            title = "Labyrinth Puzzle"
         )
     }) { padding ->
         MainContent(modifier = Modifier.padding(padding), navController)
