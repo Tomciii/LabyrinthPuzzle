@@ -22,7 +22,7 @@ fun SimpleTopAppBar(
     menuContent: @Composable () -> Unit = {
         DropdownMenuItem(onClick = { navController.navigate(Screen.ViewLabyrinthScreen.route) }) {
             Row {
-                Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "View Labyrinth", modifier = Modifier.padding(4.dp))
+                Icon(imageVector = Icons.Default.Search, contentDescription = "View Labyrinth", modifier = Modifier.padding(4.dp))
                 Text(text = "View Labyrinth", modifier = Modifier
                     .width(100.dp)
                     .padding(4.dp))
@@ -30,8 +30,16 @@ fun SimpleTopAppBar(
         }
         DropdownMenuItem(onClick = { navController.navigate(Screen.HowToScreen.route) }) {
             Row {
-                Icon(imageVector = Icons.Default.Favorite, contentDescription = "How To Play", modifier = Modifier.padding(4.dp))
+                Icon(imageVector = Icons.Default.Info, contentDescription = "How To Play", modifier = Modifier.padding(4.dp))
                 Text(text = "How To Play", modifier = Modifier
+                    .width(100.dp)
+                    .padding(4.dp))
+            }
+        }
+        DropdownMenuItem(onClick = { navController.navigate(Screen.SettingsScreen.route) }) {
+            Row {
+                Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings", modifier = Modifier.padding(4.dp))
+                Text(text = "Settings", modifier = Modifier
                     .width(100.dp)
                     .padding(4.dp))
             }
