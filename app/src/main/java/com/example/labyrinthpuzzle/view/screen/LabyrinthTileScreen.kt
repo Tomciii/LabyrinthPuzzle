@@ -65,10 +65,10 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
     val eightTilesPuzzleViewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
 
-    var isUpSolved by remember { mutableStateOf<Boolean>(false) }
-    var isDownSolved by remember { mutableStateOf<Boolean>(false) }
-    var isLeftSolved by remember { mutableStateOf<Boolean>(false) }
-    var isRightSolved by remember { mutableStateOf<Boolean>(false) }
+    var isUpSolved by remember { mutableStateOf(false) }
+    var isDownSolved by remember { mutableStateOf(false) }
+    var isLeftSolved by remember { mutableStateOf(false) }
+    var isRightSolved by remember { mutableStateOf(false) }
 
     var updatedIsUpSolved = rememberUpdatedState(tile!!.up)
     var updatedIsDownSolved = rememberUpdatedState(tile!!.down)
