@@ -50,7 +50,8 @@ fun EightTilePuzzleScreen(
     }
         Log.d("", "Test: EightTiles ID:" + eightTilePuzzleID)
         Surface {
-            SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
+            SimpleTopAppBar(navController = navController,
+                arrowBackClicked = { navController.popBackStack() }) {
                 Text(text = "Eight Tiles Puzzle")
             }
                 eightTile?.let {EightTileScreen(eightTile, navController, viewModel) }

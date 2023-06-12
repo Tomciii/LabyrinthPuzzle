@@ -41,7 +41,10 @@ fun MemoryPuzzleScreen (navController: NavController, memoryPuzzleId: String?){
     }
 
     Surface {
-        SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
+        SimpleTopAppBar(navController = navController,
+            firstMenuItemClicked = { navController.navigate(Screen.ViewLabyrinthScreen.route)},
+            secondMenuItemClicked = { navController.navigate(Screen.HowToScreen.route)},
+            arrowBackClicked = { navController.popBackStack() }) {
             Text(text = "Memory Puzzle")
         }
         memoryPuzzle?.let {MemoryPuzzle(memoryPuzzle, navController, viewModel) }

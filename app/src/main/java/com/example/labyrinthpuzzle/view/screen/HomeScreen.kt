@@ -25,7 +25,6 @@ fun HomeScreen(navController: NavController = rememberNavController()){
     val viewModel: LabyrinthViewModel =
         viewModel(factory = InjectorUtils.provideLabyrinthViewModel(LocalContext.current))
 
-
     Scaffold(topBar = {
         HomeTopAppBar(
             title = "Labyrinth Puzzle",
@@ -66,7 +65,7 @@ fun MainContent(
             }
             Row() {
                 Button(onClick = {
-                    navController.navigate("ViewLabyrinthScreen")
+                    navController.navigate(Screen.ViewLabyrinthScreen.route)
                 }) {
                     Text(
                         text = "View Labyrinth", modifier = Modifier
