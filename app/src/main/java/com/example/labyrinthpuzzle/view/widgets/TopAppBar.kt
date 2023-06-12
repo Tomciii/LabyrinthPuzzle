@@ -1,6 +1,5 @@
 package com.example.labyrinthpuzzle.view.widgets
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -14,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.labyrinthpuzzle.view.screen.Screen
-import com.example.labyrinthpuzzle.view.theme.Purple700
 
 @Composable
 fun SimpleTopAppBar(
