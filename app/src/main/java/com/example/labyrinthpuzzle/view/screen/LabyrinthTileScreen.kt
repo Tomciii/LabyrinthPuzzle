@@ -18,6 +18,7 @@ import com.example.labyrinthpuzzle.view.widgets.LabyrinthTileScreenButton
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
+import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -60,8 +61,12 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
 fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navController: NavController, viewModel: LabyrinthViewModel) {
 
     var tile by remember { mutableStateOf(labyrinthTile) }
+
     val eightTilesPuzzleViewModel: EightTilesPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideEightTilePuzzleViewModel(LocalContext.current))
+
+    val memoryPuzzleViewModel: MemoryPuzzleViewModel =
+        viewModel(factory = InjectorUtils.provideMemoryPuzzleViewModel(LocalContext.current))
 
     var isUpSolved by remember { mutableStateOf(false) }
     var isDownSolved by remember { mutableStateOf(false) }
@@ -75,17 +80,28 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
 
     LaunchedEffect(updatedIsUpSolved.value, updatedIsDownSolved.value, updatedIsLeftSolved.value, updatedIsRightSolved.value) {
         withContext(Dispatchers.IO) {
-            isUpSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsUpSolved.value)
-            isDownSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsDownSolved.value)
-            isLeftSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsLeftSolved.value)
-            isRightSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsRightSolved.value)
+            if (tile!!.puzzleArchetypeId == 1){
+                isUpSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsUpSolved.value)
+                isDownSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsDownSolved.value)
+                isLeftSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsLeftSolved.value)
+                isRightSolved = eightTilesPuzzleViewModel.isPuzzleSolved(updatedIsRightSolved.value)
+            } else {
+                isUpSolved = memoryPuzzleViewModel.isPuzzleSolved(updatedIsUpSolved.value)
+                isDownSolved = memoryPuzzleViewModel.isPuzzleSolved(updatedIsDownSolved.value)
+                isLeftSolved = memoryPuzzleViewModel.isPuzzleSolved(updatedIsLeftSolved.value)
+                isRightSolved = memoryPuzzleViewModel.isPuzzleSolved(updatedIsRightSolved.value)
+            }
         }
     }
 
     Box(Modifier
         .fillMaxSize()
         .background(color = Purple100)) {
-        Text(text = "Tile ID " + tile!!.id.toString()) // For testing
+        if (tile!!.puzzleArchetypeId == 1){
+            Text(text = "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Eight Tiles")
+        } else {
+            Text(text = "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth: Memory ")
+        }
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter, viewModel = viewModel)
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isLeftSolved, direction = tile!!.left, alignment = Alignment.CenterStart, viewModel = viewModel)
