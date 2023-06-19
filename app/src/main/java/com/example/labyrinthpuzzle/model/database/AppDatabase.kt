@@ -21,7 +21,7 @@ import java.io.InputStreamReader
 
 @Database(
     entities = [Eight::class, Memory::class, LabyrinthTile::class],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(CustomConverters::class)

@@ -13,5 +13,6 @@ data class LabyrinthTile (
     var up: Int,
     var down: Int,
     var left: Int,
-    var right: Int
+    var right: Int,
+    var isUnlocked: Boolean
         )
