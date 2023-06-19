@@ -25,6 +25,8 @@ import com.example.labyrinthpuzzle.model.models.Eight
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.theme.Purple100
 import com.example.labyrinthpuzzle.view.theme.Purple150
+import com.example.labyrinthpuzzle.view.widgets.PuzzleNotSolvedButton
+import com.example.labyrinthpuzzle.view.widgets.PuzzleSolvedButton
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
@@ -166,9 +168,7 @@ fun EightTileScreen(
         }
 
         if (viewModel.isPuzzleInCorrectOrder(tiles) || eightTilePuzzleInstance!!.isSolved) {
-            Button(onClick = { navController.popBackStack() }, enabled = true) {
-                Text(text = "Puzzle Solved!")
-            }
+            PuzzleSolvedButton(navController)
 
             eightTilePuzzleInstance!!.isSolved = true
             var solvedPuzzle = Eight(eightTilePuzzleInstance!!.id, eightPuzzle!!.grid, true)
@@ -178,9 +178,7 @@ fun EightTileScreen(
             }
 
         } else {
-            Button(onClick = { navController.popBackStack() }, enabled = false) {
-                Text("Puzzle not solved")
-            }
+            PuzzleNotSolvedButton(navController)
         }
     }
 }

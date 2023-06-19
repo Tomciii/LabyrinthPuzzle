@@ -24,6 +24,8 @@ import androidx.navigation.NavController
 import com.example.labyrinthpuzzle.model.models.Memory
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.theme.*
+import com.example.labyrinthpuzzle.view.widgets.PuzzleNotSolvedButton
+import com.example.labyrinthpuzzle.view.widgets.PuzzleSolvedButton
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import kotlinx.coroutines.Dispatchers
@@ -186,9 +188,7 @@ fun MemoryPuzzle(
         }
 
         if (viewModel.isPuzzleInCorrectOrder(solvedArray.toTypedArray())) {
-            Button(onClick = { navController.popBackStack() }, enabled = true) {
-                Text("Puzzle Solved!")
-            }
+            PuzzleSolvedButton(navController)
 
             memoryPuzzleInstance!!.isSolved = true
             var solvedPuzzle = Memory(memoryPuzzleInstance!!.id, memoryPuzzle!!.grid, true)
@@ -198,9 +198,7 @@ fun MemoryPuzzle(
             }
 
         } else {
-            Button(onClick = { navController.popBackStack() }, enabled = false) {
-                Text("Puzzle not solved")
-            }
+            PuzzleNotSolvedButton(navController)
         }
     }
 }

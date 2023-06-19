@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.labyrinthpuzzle.model.models.LabyrinthTile
 import com.example.labyrinthpuzzle.view.theme.Purple100
+import com.example.labyrinthpuzzle.view.theme.VIEW_LABYRINTH
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -50,7 +51,7 @@ fun ViewLabyrinthScreen(
         Column {
             SimpleTopAppBar(
                 navController = navController) {
-                androidx.compose.material.Text(text = "View Labyrinth")
+                androidx.compose.material.Text(text = VIEW_LABYRINTH)
             }
 
             LazyVerticalGrid(

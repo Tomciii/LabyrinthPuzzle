@@ -1,5 +1,6 @@
 package com.example.labyrinthpuzzle.screen
 
+import com.example.labyrinthpuzzle.view.theme.SETTINGS
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
@@ -17,7 +18,7 @@ fun SettingsScreen(navController: NavController = rememberNavController()){
         Column {
             SimpleTopAppBar(
                 navController = navController) {
-                Text(text = "Settings")
+                Text(text = SETTINGS)
             }
 
             Text("Settings!")

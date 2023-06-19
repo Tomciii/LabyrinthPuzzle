@@ -17,7 +17,7 @@ fun HowToScreen(navController: NavController = rememberNavController()){
            Column() {
                SimpleTopAppBar(
                    navController = navController) {
-                   Text(text = "How To")
+                   Text(text = "How To Play")
                }
 
                Text("How To Play!")

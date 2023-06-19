@@ -32,6 +32,20 @@ fun HomeScreenMenuButton(navController: NavController, text: String, route: Stri
 }
 
 @Composable
+fun PuzzleSolvedButton(navController: NavController){
+    Button(onClick = { navController.popBackStack() }, enabled = true) {
+        Text(text = "Puzzle Solved!")
+    }
+}
+
+@Composable
+fun PuzzleNotSolvedButton(navController: NavController){
+    Button(onClick = { navController.popBackStack() }, enabled = false) {
+        Text(text = "Puzzle Not Solved!")
+    }
+}
+
+@Composable
 fun LabyrinthTileScreenButton (navController: NavController, tile: LabyrinthTile, isSolved: Boolean, direction: Int, alignment: Alignment, viewModel: LabyrinthViewModel) {
 
     // The id of the Labyrinth Tile that you click on, takes care of back button as well as next Labyrinth

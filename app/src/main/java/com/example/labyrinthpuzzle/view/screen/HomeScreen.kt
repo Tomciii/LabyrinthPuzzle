@@ -13,9 +13,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.screen.Screen
+import com.example.labyrinthpuzzle.view.theme.*
 import com.example.labyrinthpuzzle.view.widgets.HomeScreenTopAppBar
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
-import com.example.labyrinthpuzzle.view.theme.Purple100
 import com.example.labyrinthpuzzle.view.widgets.HomeScreenMenuButton
 
 @Composable
@@ -25,7 +25,7 @@ fun HomeScreen(navController: NavController = rememberNavController()){
         viewModel(factory = InjectorUtils.provideLabyrinthViewModel(LocalContext.current))
 
     Scaffold(topBar = {
-        HomeScreenTopAppBar(title = "Labyrinth Puzzle")
+        HomeScreenTopAppBar(title = LABYRINTH_PUZZLE)
     }) { padding -> MainContent(modifier = Modifier.padding(padding), navController) }
 }
 
@@ -39,13 +39,13 @@ fun MainContent(
         .background(color = Purple100)){
         Column(modifier = Modifier.align(Alignment.Center).padding(15.dp)) {
 
-            HomeScreenMenuButton(navController, "Start", "labyrinth/1")
+            HomeScreenMenuButton(navController, START, "labyrinth/1")
 
-            HomeScreenMenuButton(navController, "How To", Screen.HowToScreen.route)
+            HomeScreenMenuButton(navController, HOW_TO_PLAY, Screen.HowToScreen.route)
 
-            HomeScreenMenuButton(navController, "View Labyrinth", Screen.ViewLabyrinthScreen.route)
+            HomeScreenMenuButton(navController, VIEW_LABYRINTH, Screen.ViewLabyrinthScreen.route)
 
-            HomeScreenMenuButton(navController, "Settings", Screen.SettingsScreen.route)
+            HomeScreenMenuButton(navController, SETTINGS, Screen.SettingsScreen.route)
         }
     }
 }
