@@ -1,8 +1,7 @@
 package com.example.labyrinthpuzzle.viewModels
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.labyrinthpuzzle.model.models.LabyrinthTile
+import com.example.labyrinthpuzzle.model.entity.LabyrinthTile
 import com.example.labyrinthpuzzle.model.repository.LabyrinthRepository
 
 class LabyrinthViewModel(private val repository: LabyrinthRepository): ViewModel() {

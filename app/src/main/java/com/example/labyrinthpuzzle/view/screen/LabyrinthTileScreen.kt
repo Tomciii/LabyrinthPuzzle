@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.labyrinthpuzzle.model.models.LabyrinthTile
+import com.example.labyrinthpuzzle.model.entity.LabyrinthTile
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.theme.LABYRINTH
 import com.example.labyrinthpuzzle.view.theme.Purple100

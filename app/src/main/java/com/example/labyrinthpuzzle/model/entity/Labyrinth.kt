@@ -1,4 +1,4 @@
-package com.example.labyrinthpuzzle.model.models
+package com.example.labyrinthpuzzle.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

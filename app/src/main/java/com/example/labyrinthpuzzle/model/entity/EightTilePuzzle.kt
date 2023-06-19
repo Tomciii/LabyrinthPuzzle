@@ -1,12 +1,12 @@
-package com.example.labyrinthpuzzle.model.models
+package com.example.labyrinthpuzzle.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Memory (
+data class Eight (
     @PrimaryKey(autoGenerate = true)
     var id: Int,
-    var grid: List<String>, // [1,1,2,2,3,3] pairs of 2, 6 puzzle pieces in total
+    var grid: List<String>,
     var isSolved: Boolean
 )

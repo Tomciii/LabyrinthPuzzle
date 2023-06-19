@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.labyrinthpuzzle.model.models.Memory
+import com.example.labyrinthpuzzle.model.entity.Memory
 
 @Dao
 interface MemoryPuzzleDao {

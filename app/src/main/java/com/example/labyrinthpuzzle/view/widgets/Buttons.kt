@@ -1,6 +1,5 @@
 package com.example.labyrinthpuzzle.view.widgets
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -8,12 +7,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.labyrinthpuzzle.model.models.LabyrinthTile
+import com.example.labyrinthpuzzle.model.entity.LabyrinthTile
 import com.example.labyrinthpuzzle.view.screen.Screen
 import com.example.labyrinthpuzzle.view.theme.*
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel

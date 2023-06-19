@@ -8,9 +8,9 @@ import androidx.room.TypeConverters
 import com.example.labyrinthpuzzle.model.dao.EightTilePuzzleDao
 import com.example.labyrinthpuzzle.model.dao.LabyrinthDao
 import com.example.labyrinthpuzzle.model.dao.MemoryPuzzleDao
-import com.example.labyrinthpuzzle.model.models.Eight
-import com.example.labyrinthpuzzle.model.models.LabyrinthTile
-import com.example.labyrinthpuzzle.model.models.Memory
+import com.example.labyrinthpuzzle.model.entity.Eight
+import com.example.labyrinthpuzzle.model.entity.LabyrinthTile
+import com.example.labyrinthpuzzle.model.entity.Memory
 import com.example.labyrinthpuzzle.model.utils.CustomConverters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

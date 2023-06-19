@@ -2,7 +2,7 @@ package com.example.labyrinthpuzzle.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.labyrinthpuzzle.model.models.Eight
+import com.example.labyrinthpuzzle.model.entity.Eight
 import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 
 

@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.labyrinthpuzzle.model.models.LabyrinthTile
+import com.example.labyrinthpuzzle.model.entity.LabyrinthTile
 import com.example.labyrinthpuzzle.view.theme.Purple100
 import com.example.labyrinthpuzzle.view.theme.VIEW_LABYRINTH
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar

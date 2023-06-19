@@ -1,8 +1,7 @@
 package com.example.labyrinthpuzzle.model.repository
 
 import com.example.labyrinthpuzzle.model.dao.LabyrinthDao
-import com.example.labyrinthpuzzle.model.models.Eight
-import com.example.labyrinthpuzzle.model.models.LabyrinthTile
+import com.example.labyrinthpuzzle.model.entity.LabyrinthTile
 
 class LabyrinthRepository(private val labyrinthDao: LabyrinthDao) {
 

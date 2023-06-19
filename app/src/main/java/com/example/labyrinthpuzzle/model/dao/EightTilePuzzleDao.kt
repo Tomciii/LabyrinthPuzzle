@@ -1,7 +1,7 @@
 package com.example.labyrinthpuzzle.model.dao
 
 import androidx.room.*
-import com.example.labyrinthpuzzle.model.models.Eight
+import com.example.labyrinthpuzzle.model.entity.Eight
 
 @Dao
 interface EightTilePuzzleDao {
