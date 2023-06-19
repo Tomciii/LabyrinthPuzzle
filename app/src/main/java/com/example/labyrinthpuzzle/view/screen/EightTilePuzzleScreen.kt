@@ -147,13 +147,14 @@ fun EightTileScreen(
                                     },
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text(
-                                    text = tiles[i][j].toString(),
-                                    fontSize = textSize,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    color = Color.Black
-                                )
+                                if (!tiles[i][j].toString().equals("0"))
+                                    Text(
+                                        text = tiles[i][j].toString(),
+                                        fontSize = textSize,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                        color = Color.Black
+                                    )
                             }
                             if (tiles[i][j] == 0) {
                                 emptyTilePosition = i to j

@@ -1,6 +1,7 @@
 package com.example.labyrinthpuzzle.view.screen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -52,7 +53,8 @@ fun MemoryPuzzleScreen (navController: NavController, memoryPuzzleId: String?){
 
 }
 
-@SuppressLint("CoroutineCreationDuringComposition", "UnrememberedMutableState",
+@SuppressLint("CoroutineCreationDuringComposition",
+    "UnrememberedMutableState",
     "StateFlowValueCalledInComposition"
 )
 @Composable
@@ -60,21 +62,14 @@ fun MemoryPuzzle(
     memoryPuzzle: Memory?,
     navController: NavController,
     viewModel: MemoryPuzzleViewModel
-){
+) {
     var memoryPuzzleInstance by remember {
         mutableStateOf(memoryPuzzle)
     }
 
-    val solvedArrayState = MutableStateFlow(mutableStateListOf<Int?>(0, 0, 0, 0, 0, 0))
-    val updatedsolvedArrayState = rememberUpdatedState(solvedArrayState)
+    val solvedArrayState = remember { mutableStateListOf<Int?>(0, 0, 0, 0, 0, 0) }
 
-    var solvedArray = solvedArrayState.value
-
-    LaunchedEffect(updatedsolvedArrayState.value) {
-        withContext(Dispatchers.IO) {
-            solvedArray = updatedsolvedArrayState.value.value
-        }
-    }
+    var solvedArray by remember(solvedArrayState) { mutableStateOf(solvedArrayState) }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -101,26 +96,25 @@ fun MemoryPuzzle(
         ) {
             Column(
                 modifier = Modifier.align(Alignment.Center)
-            ){
-            for (i in 0 until rows) {
-                Row(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    for (j in 0 until columns) {
-                        var boxIndex = i + j
+            ) {
+                for (i in 0 until rows) {
+                    Row(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        for (j in 0 until columns) {
+                            var boxIndex = i + j
 
-                        if (i == 1){
-                            boxIndex++
-                        } else if (i == 2){
-                            boxIndex += 2
-                        }
+                            if (i == 1) {
+                                boxIndex++
+                            } else if (i == 2) {
+                                boxIndex += 2
+                            }
 
-                        val box = i to j
-                        val isSelected = remember { mutableStateOf(selectedBoxes.contains(i to j)) }
-                        val isMatched = remember { mutableStateOf(matchedBoxes.contains(box)) }
-
+                            var box = i to j
+                            var isSelected = remember { mutableStateOf(selectedBoxes.contains(i to j)) }
+                            var isMatched = remember { mutableStateOf(matchedBoxes.contains(box)) }
 
                             Box(
                                 modifier = Modifier
@@ -128,8 +122,8 @@ fun MemoryPuzzle(
                                     .padding(8.dp)
                                     .border(1.dp, Color.Black)
                                     .background(
-                                        if (isMatched.value) Green100
-                                        else if (isSelected.value) Color.White
+                                        if (solvedArray[boxIndex] == 1) Green100
+                                        else if (selectedBoxes.contains(box)) Color.White
                                         else Purple150
                                         , RectangleShape)
                                     .clickable {
@@ -139,39 +133,39 @@ fun MemoryPuzzle(
 
                                         if (selectedBoxes.size < 2) {
                                             selectedBoxes.add(box)
-                                            isSelected.value = true
+
 
                                             if (selectedBoxes.size == 2) {
                                                 val isCorrect = checkMatch(selectedBoxes[0], selectedBoxes[1], memoryPuzzleInstance!!.grid)
                                                 if (isCorrect) {
                                                     var firstBoxIndex = selectedBoxes[0].first + selectedBoxes[0].second
 
-                                                    if (selectedBoxes[0].first == 1){
+                                                    if (selectedBoxes[0].first == 1) {
                                                         firstBoxIndex++
-                                                    } else if (selectedBoxes[0].first == 2){
+                                                    } else if (selectedBoxes[0].first == 2) {
                                                         firstBoxIndex += 2
                                                     }
 
                                                     var secondBoxIndex = selectedBoxes[1].first + selectedBoxes[1].second
 
-                                                    if (selectedBoxes[1].first == 1){
+                                                    if (selectedBoxes[1].first == 1) {
                                                         secondBoxIndex++
-                                                    } else if (selectedBoxes[1].first == 2){
+                                                    } else if (selectedBoxes[1].first == 2) {
                                                         secondBoxIndex += 2
                                                     }
 
-
-                                                    solvedArray[firstBoxIndex] = 1
-                                                    solvedArray[secondBoxIndex] = 1
-                                                    solvedArrayState.value = solvedArray
-                                                    isMatched.value = true
+                                                    solvedArrayState[firstBoxIndex] = 1
+                                                    solvedArrayState[secondBoxIndex] = 1
+                                                    matchedBoxes.add(box)
                                                 }
-                                                selectedBoxes.clear()
+
+                                                    selectedBoxes.clear()
+
                                             }
                                         }
                                     }
                             ) {
-                                if (isSelected.value || isMatched.value) {
+                                if (selectedBoxes.contains(box) || solvedArray[boxIndex] == 1) {
                                     Text(
                                         text = "${memoryPuzzle!!.grid.get(boxIndex)}",
                                         modifier = Modifier.align(Alignment.Center),
@@ -179,9 +173,9 @@ fun MemoryPuzzle(
                                     )
                                 }
                             }
+                        }
                     }
                 }
-            }
             }
         }
 
@@ -194,7 +188,7 @@ fun MemoryPuzzle(
             var solvedPuzzle = Memory(memoryPuzzleInstance!!.id, memoryPuzzle!!.grid, true)
 
             coroutineScope.launch {
-          //      viewModel.update(solvedPuzzle)
+                // viewModel.update(solvedPuzzle)
             }
 
         } else {
@@ -202,7 +196,8 @@ fun MemoryPuzzle(
                 Text("Puzzle not solved")
             }
         }
-}}
+    }
+}
 
 private fun checkMatch(box1: Pair<Int, Int>, box2: Pair<Int, Int>, grid:List<String>): Boolean {
     var firstBoxIndex = box1.first + box1.second
@@ -223,4 +218,16 @@ private fun checkMatch(box1: Pair<Int, Int>, box2: Pair<Int, Int>, grid:List<Str
 
     return grid!!.get(firstBoxIndex) == grid!!.get(secondBoxIndex)
 
+}
+
+private fun getIndex(row: Int, column: Int): Int {
+    var index = row + column
+
+    if (row == 1) {
+        index++
+    } else if (row == 2) {
+        index += 2
+    }
+
+    return index
 }

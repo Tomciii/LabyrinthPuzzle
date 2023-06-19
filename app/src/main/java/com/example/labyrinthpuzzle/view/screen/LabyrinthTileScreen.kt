@@ -51,7 +51,7 @@ fun LabyrinthTileScreen(navController: NavController = rememberNavController(), 
 
             //only for testing
             GlobalScope.launch(Dispatchers.IO){
-            labyrinthViewModel.printArray()
+          //  labyrinthViewModel.printArray()
             }
 
         }
