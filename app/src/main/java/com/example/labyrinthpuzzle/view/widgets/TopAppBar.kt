@@ -76,7 +76,7 @@ fun SimpleTopAppBar(
 }
 
 @Composable
-fun HomeTopAppBar(
+fun HomeScreenTopAppBar(
     title: String = "Labyrinth Puzzle",
 ){
     TopAppBar(

@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -166,7 +167,7 @@ fun EightTileScreen(
 
         if (viewModel.isPuzzleInCorrectOrder(tiles) || eightTilePuzzleInstance!!.isSolved) {
             Button(onClick = { navController.popBackStack() }, enabled = true) {
-                Text("Puzzle Solved!")
+                Text(text = "Puzzle Solved!")
             }
 
             eightTilePuzzleInstance!!.isSolved = true
