@@ -1,7 +1,6 @@
 package com.example.labyrinthpuzzle.view.screen
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures

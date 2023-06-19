@@ -1,22 +1,24 @@
 package com.example.labyrinthpuzzle.view.screen
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.labyrinthpuzzle.model.models.Memory
@@ -25,7 +27,6 @@ import com.example.labyrinthpuzzle.view.theme.*
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -76,7 +77,6 @@ fun MemoryPuzzle(
     val rows = 3
     val columns = 2
 
-    val grid = Array(rows) { IntArray(columns) }
     val selectedBoxes = remember { mutableStateListOf<Pair<Int, Int>>() }
     val matchedBoxes = remember { mutableStateListOf<Pair<Int, Int>>() }
 
@@ -124,8 +124,8 @@ fun MemoryPuzzle(
                                     .background(
                                         if (solvedArray[boxIndex] == 1) Green100
                                         else if (selectedBoxes.contains(box)) Color.White
-                                        else Purple150
-                                        , RectangleShape)
+                                        else Purple150, RectangleShape
+                                    )
                                     .clickable {
                                         if (isSelected.value || isMatched.value) {
                                             return@clickable
@@ -137,6 +137,7 @@ fun MemoryPuzzle(
 
                                             if (selectedBoxes.size == 2) {
                                                 val isCorrect = checkMatch(selectedBoxes[0], selectedBoxes[1], memoryPuzzleInstance!!.grid)
+
                                                 if (isCorrect) {
                                                     var firstBoxIndex = selectedBoxes[0].first + selectedBoxes[0].second
 
@@ -159,17 +160,22 @@ fun MemoryPuzzle(
                                                     matchedBoxes.add(box)
                                                 }
 
-                                                    selectedBoxes.clear()
+                                                selectedBoxes.clear()
 
                                             }
                                         }
                                     }
                             ) {
+
+                                var memorySymbol = getMemorySymbol(memoryPuzzle, boxIndex)
+
                                 if (selectedBoxes.contains(box) || solvedArray[boxIndex] == 1) {
-                                    Text(
-                                        text = "${memoryPuzzle!!.grid.get(boxIndex)}",
-                                        modifier = Modifier.align(Alignment.Center),
-                                        fontSize = 24.sp
+                                    Icon(
+                                        imageVector = memorySymbol,
+                                        contentDescription = "Symbol",
+                                        modifier = Modifier
+                                            .align(Alignment.Center)
+                                            .size(50.dp)
                                     )
                                 }
                             }
@@ -188,7 +194,7 @@ fun MemoryPuzzle(
             var solvedPuzzle = Memory(memoryPuzzleInstance!!.id, memoryPuzzle!!.grid, true)
 
             coroutineScope.launch {
-                // viewModel.update(solvedPuzzle)
+                viewModel.update(solvedPuzzle)
             }
 
         } else {
@@ -199,6 +205,16 @@ fun MemoryPuzzle(
     }
 }
 
+private fun getMemorySymbol(memoryPuzzle : Memory?, boxIndex: Int):ImageVector{
+    Icons.Default.Build
+    if (memoryPuzzle!!.grid.get(boxIndex) == "1") {
+        return Icons.Default.Call
+    } else if (memoryPuzzle!!.grid.get(boxIndex) == "2") {
+        return Icons.Default.Check
+    }
+
+    return Icons.Default.Build
+}
 private fun checkMatch(box1: Pair<Int, Int>, box2: Pair<Int, Int>, grid:List<String>): Boolean {
     var firstBoxIndex = box1.first + box1.second
 
@@ -217,17 +233,4 @@ private fun checkMatch(box1: Pair<Int, Int>, box2: Pair<Int, Int>, grid:List<Str
     }
 
     return grid!!.get(firstBoxIndex) == grid!!.get(secondBoxIndex)
-
-}
-
-private fun getIndex(row: Int, column: Int): Int {
-    var index = row + column
-
-    if (row == 1) {
-        index++
-    } else if (row == 2) {
-        index += 2
-    }
-
-    return index
 }
