@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.labyrinthpuzzle.model.models.LabyrinthTile
 import com.example.labyrinthpuzzle.view.screen.Screen
+import com.example.labyrinthpuzzle.view.theme.BigTextModifier
+import com.example.labyrinthpuzzle.view.theme.LabyrinthTileScreenButtonText
 import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,12 +23,7 @@ fun HomeScreenMenuButton(navController: NavController, text: String, route: Stri
     Button(modifier = Modifier.height(65.dp), onClick = {
         navController.navigate(route)
     }) {
-        Text(text = text, modifier = Modifier
-            .width(150.dp)
-            .padding(4.dp),
-            textAlign = TextAlign.Center,
-            fontSize = 17.sp
-        )
+        Text(text = text, modifier = BigTextModifier, textAlign = TextAlign.Center, fontSize = 17.sp)
     }
 
     Spacer(modifier = Modifier.height(12.dp))
@@ -59,15 +56,12 @@ fun LabyrinthTileScreenButton (navController: NavController, tile: LabyrinthTile
             if (direction.equals(99)) {
                 Button(
                     onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((clickedId).toString())) },
-                    modifier = Modifier.align(alignment).padding(15.dp).height(65.dp)
+                    modifier = Modifier
+                        .align(alignment)
+                        .padding(15.dp)
+                        .height(65.dp)
                 ) {
-                    Text(
-                        text = "Back", modifier = Modifier
-                            .width(100.dp)
-                            .padding(4.dp),
-                        textAlign = TextAlign.Center,
-                        fontSize = 15.sp
-                    )
+                    LabyrinthTileScreenButtonText(text = "Back")
                 }
             } else {
                 // check if isSolved -> display "Go to next Tile"
@@ -75,15 +69,12 @@ fun LabyrinthTileScreenButton (navController: NavController, tile: LabyrinthTile
                 if (isSolved.equals(true)) {
                     Button(
                         onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((clickedId).toString())) },
-                        modifier = Modifier.align(alignment).padding(15.dp).height(65.dp)
+                        modifier = Modifier
+                            .align(alignment)
+                            .padding(15.dp)
+                            .height(65.dp)
                     ) {
-                        Text(
-                            text = "Go to next Tile", modifier = Modifier
-                                .width(100.dp)
-                                .padding(4.dp),
-                            textAlign = TextAlign.Center,
-                            fontSize = 15.sp
-                        )
+                        LabyrinthTileScreenButtonText(text = "Go to next Tile")
                     }
                 } else {
                     Button(onClick = {
@@ -93,14 +84,11 @@ fun LabyrinthTileScreenButton (navController: NavController, tile: LabyrinthTile
                                 direction.toString()
                             )
                         )
-                    }, modifier = Modifier.align(alignment).padding(15.dp).height(65.dp)) {
-                        Text(
-                            text = "Open Puzzle", modifier = Modifier
-                                .width(100.dp)
-                                .padding(4.dp),
-                            textAlign = TextAlign.Center,
-                            fontSize = 15.sp
-                        )
+                    }, modifier = Modifier
+                        .align(alignment)
+                        .padding(15.dp)
+                        .height(65.dp)) {
+                        LabyrinthTileScreenButtonText(text = "Open puzzle")
                     }
                 }
             }
