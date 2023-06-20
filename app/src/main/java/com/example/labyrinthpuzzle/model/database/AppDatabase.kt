@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.util.*
 
 @Database(
     entities = [Eight::class, Memory::class, LabyrinthTile::class],
@@ -46,10 +47,28 @@ abstract class AppDatabase : RoomDatabase() {
                 val database = databaseBuilder.build()
                 Instance = database
 
-                initializeData(database, context)
+                val initializeDataFlag = readProperty(context)
+
+                if (initializeDataFlag){
+                    initializeData(database, context)
+                }
 
                 database
             }
+        }
+
+
+        private fun readProperty(context: Context): Boolean {
+            try {
+                val properties = Properties()
+                val assetManager = context.assets
+                val inputStream = assetManager.open("application.properties")
+                properties.load(inputStream)
+                return properties.getProperty("initialize_data", "true").toBoolean()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return true // Default value if the file read fails
         }
 
         private fun initializeData(database: AppDatabase, context: Context) {
