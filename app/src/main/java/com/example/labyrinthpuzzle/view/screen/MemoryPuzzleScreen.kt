@@ -167,7 +167,7 @@ fun MemoryPuzzle(
                                                 }
 
                                                 coroutineScope.launch {
-                                                    delay(300)
+                                                    delay(200)
                                                     incorrectSelection = null
                                                     selectedBoxes.clear()
                                                 }

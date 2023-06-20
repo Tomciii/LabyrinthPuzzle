@@ -129,13 +129,20 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
          //   Log.d("Labyrinth Tile ", "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Memory")
         }
 
-        if (tile!!.id == 13){
-            Text(text="Congratulations you've won!", modifier = Modifier.align(Alignment.Center))
-        }
+        displayExtraInformation(tile, Modifier.align(Alignment.Center))
 
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter, viewModel = viewModel)
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isLeftSolved, direction = tile!!.left, alignment = Alignment.CenterStart, viewModel = viewModel)
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isRightSolved, direction = tile!!.right, alignment = Alignment.CenterEnd, viewModel = viewModel)
+    }
+}
+
+@Composable
+private fun displayExtraInformation(tile: LabyrinthTile?, modifier: Modifier){
+    if (tile!!.id == 13){
+        Text(text="Congratulations you've won!", modifier = modifier)
+    } else if (tile!!.id == 18 || tile!!.id == 14 || tile!!.id == 15 ){
+        Text(text="You've reached a dead end!", modifier = modifier)
     }
 }
