@@ -1,5 +1,6 @@
 package com.example.labyrinthpuzzle.view.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
@@ -121,11 +122,13 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
     Box(Modifier
         .fillMaxSize()
         .background(color = Purple100)) {
+
         if (tile!!.puzzleArchetypeId == 1){
-            Text(text = "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Eight Tiles")
+           Log.d("Labyrinth Tile ", "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Eight Tiles")
         } else {
-            Text(text = "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth: Memory ")
+            Log.d("Labyrinth Tile ", "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Memory")
         }
+
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isDownSolved, direction = tile!!.down, alignment = Alignment.BottomCenter, viewModel = viewModel)
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isLeftSolved, direction = tile!!.left, alignment = Alignment.CenterStart, viewModel = viewModel)
