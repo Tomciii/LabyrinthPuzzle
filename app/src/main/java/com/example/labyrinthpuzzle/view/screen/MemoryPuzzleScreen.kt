@@ -28,6 +28,7 @@ import com.example.labyrinthpuzzle.view.widgets.PuzzleSolvedButton
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -116,6 +117,7 @@ fun MemoryPuzzle(
                             var box = i to j
                             var isSelected = remember { mutableStateOf(selectedBoxes.contains(i to j)) }
                             var isMatched = remember { mutableStateOf(matchedBoxes.contains(box)) }
+                            var incorrectSelection by remember { mutableStateOf<Pair<Int, Int>?>(null) }
 
                             Box(
                                 modifier = Modifier
@@ -125,6 +127,7 @@ fun MemoryPuzzle(
                                     .background(
                                         if (solvedArray[boxIndex] == 1) Green100
                                         else if (selectedBoxes.contains(box)) Color.White
+                                        else if (box == incorrectSelection) Color.White
                                         else Purple150, RectangleShape
                                     )
                                     .clickable {
@@ -159,10 +162,15 @@ fun MemoryPuzzle(
                                                     solvedArrayState[firstBoxIndex] = 1
                                                     solvedArrayState[secondBoxIndex] = 1
                                                     matchedBoxes.add(box)
+                                                } else {
+                                                    incorrectSelection = box
                                                 }
-
-                                                selectedBoxes.clear()
-
+                                                
+                                                coroutineScope.launch {
+                                                    delay(300)
+                                                    incorrectSelection = null
+                                                    selectedBoxes.clear()
+                                                }
                                             }
                                         }
                                     }

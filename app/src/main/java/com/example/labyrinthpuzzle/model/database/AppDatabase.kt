@@ -47,15 +47,17 @@ abstract class AppDatabase : RoomDatabase() {
                 val database = databaseBuilder.build()
                 Instance = database
 
+                // reads from application.properties
                 val initializeDataFlag = readProperty(context)
 
-                if (initializeDataFlag){
+                if (initializeDataFlag){ // false == keep date, true == reset
                     initializeData(database, context)
                 }
 
                 database
             }
         }
+
 
 
         private fun readProperty(context: Context): Boolean {
