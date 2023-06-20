@@ -124,9 +124,13 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
         .background(color = Purple100)) {
 
         if (tile!!.puzzleArchetypeId == 1){
-           Log.d("Labyrinth Tile ", "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Eight Tiles")
+         //  Log.d("Labyrinth Tile ", "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Eight Tiles")
         } else {
-            Log.d("Labyrinth Tile ", "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Memory")
+         //   Log.d("Labyrinth Tile ", "Labyrinth Tile " + tile!!.id.toString() + ", Type of Labyrinth : Memory")
+        }
+
+        if (tile!!.id == 13){
+            Text(text="Congratulations you've won!", modifier = Modifier.align(Alignment.Center))
         }
 
         LabyrinthTileScreenButton(navController = navController, tile = tile!!, isSolved = isUpSolved, direction = tile!!.up, alignment = Alignment.TopCenter, viewModel = viewModel)

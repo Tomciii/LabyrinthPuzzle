@@ -165,7 +165,7 @@ fun MemoryPuzzle(
                                                 } else {
                                                     incorrectSelection = box
                                                 }
-                                                
+
                                                 coroutineScope.launch {
                                                     delay(300)
                                                     incorrectSelection = null
