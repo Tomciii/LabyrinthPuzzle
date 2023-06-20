@@ -53,13 +53,13 @@ fun LabyrinthTileScreenButton (navController: NavController, tile: LabyrinthTile
     LaunchedEffect(updatedclickedId.value) {
         withContext(Dispatchers.IO) {
             if (alignment == Alignment.TopCenter){
-                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate + 1)
+                clickedId = viewModel.getTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate + 1)
             } else if (alignment == Alignment.BottomCenter){
-                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate - 1)
+                clickedId = viewModel.getTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate - 1)
             } else if (alignment == Alignment.CenterStart){
-                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate - 1, tile!!.yCoordinate)
+                clickedId = viewModel.getTileIdByCoordinates(tile!!.xCoordinate - 1, tile!!.yCoordinate)
             } else if (alignment == Alignment.CenterEnd){
-                clickedId = viewModel.getPreviousTileIdByCoordinates(tile!!.xCoordinate + 1, tile!!.yCoordinate)
+                clickedId = viewModel.getTileIdByCoordinates(tile!!.xCoordinate + 1, tile!!.yCoordinate)
             }
         }
     }

@@ -97,19 +97,23 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
             }
 
             if (isUpSolved){
-                labyrinthViewModel.unlockLabyrinthTile(tile!!.up)
+                val id = viewModel.getTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate + 1)
+                labyrinthViewModel.unlockLabyrinthTile(id)
             }
 
             if (isDownSolved){
-                labyrinthViewModel.unlockLabyrinthTile(tile!!.down)
+                val id = viewModel.getTileIdByCoordinates(tile!!.xCoordinate, tile!!.yCoordinate - 1)
+                labyrinthViewModel.unlockLabyrinthTile(id)
             }
 
             if (isLeftSolved){
-                labyrinthViewModel.unlockLabyrinthTile(tile!!.left)
+                val id = viewModel.getTileIdByCoordinates(tile!!.xCoordinate - 1, tile!!.yCoordinate)
+                labyrinthViewModel.unlockLabyrinthTile(id)
             }
 
             if (isRightSolved){
-                labyrinthViewModel.unlockLabyrinthTile(tile!!.right)
+                val id = viewModel.getTileIdByCoordinates(tile!!.xCoordinate + 1, tile!!.yCoordinate)
+                labyrinthViewModel.unlockLabyrinthTile(id)
             }
         }
     }
