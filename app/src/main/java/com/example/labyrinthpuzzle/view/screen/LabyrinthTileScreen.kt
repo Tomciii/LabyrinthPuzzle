@@ -69,6 +69,9 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
     val memoryPuzzleViewModel: MemoryPuzzleViewModel =
         viewModel(factory = InjectorUtils.provideMemoryPuzzleViewModel(LocalContext.current))
 
+    val labyrinthViewModel: LabyrinthViewModel =
+        viewModel(factory = InjectorUtils.provideLabyrinthViewModel(LocalContext.current))
+
     var isUpSolved by remember { mutableStateOf(false) }
     var isDownSolved by remember { mutableStateOf(false) }
     var isLeftSolved by remember { mutableStateOf(false) }
@@ -91,6 +94,22 @@ fun LabyrinthTile(labyrinthTile: LabyrinthTile?, modifier: Modifier, navControll
                 isDownSolved = memoryPuzzleViewModel.isPuzzleSolved(updatedIsDownSolved.value)
                 isLeftSolved = memoryPuzzleViewModel.isPuzzleSolved(updatedIsLeftSolved.value)
                 isRightSolved = memoryPuzzleViewModel.isPuzzleSolved(updatedIsRightSolved.value)
+            }
+
+            if (isUpSolved){
+                labyrinthViewModel.unlockLabyrinthTile(tile!!.up)
+            }
+
+            if (isDownSolved){
+                labyrinthViewModel.unlockLabyrinthTile(tile!!.down)
+            }
+
+            if (isLeftSolved){
+                labyrinthViewModel.unlockLabyrinthTile(tile!!.left)
+            }
+
+            if (isRightSolved){
+                labyrinthViewModel.unlockLabyrinthTile(tile!!.right)
             }
         }
     }

@@ -13,6 +13,8 @@ class LabyrinthRepository(private val labyrinthDao: LabyrinthDao) {
         return labyrinthDao.getLabyrinthById(id)
     }
 
+    suspend fun unlockLabyrinthTile(id: Int) = labyrinthDao.unlockLabyrinthTile(id)
+
     fun getAllTiles (): List<LabyrinthTile> {
         return labyrinthDao.getAllTiles()
     }

@@ -44,6 +44,11 @@ class LabyrinthViewModel(private val repository: LabyrinthRepository): ViewModel
             println()
         }
     }
+
+    suspend fun unlockLabyrinthTile(id: Int){
+        repository.unlockLabyrinthTile(id)
+    }
+
     fun getAllLabyrinthTiles(): List<LabyrinthTile?> {
         return repository.getAllTiles()
     }

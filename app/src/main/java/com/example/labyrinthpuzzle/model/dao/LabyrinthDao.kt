@@ -25,6 +25,9 @@ interface LabyrinthDao {
     @Query("SELECT * FROM labyrinthtile")
     fun getAllTiles(): List<LabyrinthTile>
 
+    @Query("UPDATE labyrinthtile SET isUnlocked = 1 WHERE id =:id")
+    suspend fun unlockLabyrinthTile(id: Int)
+
     @Query("SELECT id FROM labyrinthtile WHERE xCoordinate=:xCoordinate AND yCoordinate=:yCoordinate")
     fun getLabyrinthIdByCoordinates(xCoordinate: Int, yCoordinate: Int) : Int
 }
