@@ -167,6 +167,7 @@ fun EightTileScreen(
 
         if (viewModel.isPuzzleInCorrectOrder(tiles) || eightTilePuzzleInstance!!.isSolved) {
             PuzzleSolvedButton(navController)
+            Text("You've unlocked a new Labyrinth Tile!")
 
             eightTilePuzzleInstance!!.isSolved = true
             var solvedPuzzle = Eight(eightTilePuzzleInstance!!.id, eightPuzzle!!.grid, true)
