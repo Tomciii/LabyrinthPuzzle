@@ -23,6 +23,7 @@ import com.example.labyrinthpuzzle.model.entity.Eight
 import com.example.labyrinthpuzzle.model.utils.InjectorUtils
 import com.example.labyrinthpuzzle.view.theme.Purple100
 import com.example.labyrinthpuzzle.view.theme.Purple150
+import com.example.labyrinthpuzzle.view.theme.UNLOCK
 import com.example.labyrinthpuzzle.view.widgets.PuzzleNotSolvedButton
 import com.example.labyrinthpuzzle.view.widgets.PuzzleSolvedButton
 import com.example.labyrinthpuzzle.viewModels.EightTilesPuzzleViewModel
@@ -77,7 +78,6 @@ fun EightTileScreen(
     var emptyTilePosition by remember { mutableStateOf(-1 to -1) }
 
     var tiles by remember { mutableStateOf(viewModel.convertListTo2DArray(eightTilePuzzleInstance!!.grid)) }
-    var isSolved by remember { mutableStateOf(false) }
     var selectedTile by remember { mutableStateOf(-1 to -1) }
 
     Column(
@@ -167,7 +167,7 @@ fun EightTileScreen(
 
         if (viewModel.isPuzzleInCorrectOrder(tiles) || eightTilePuzzleInstance!!.isSolved) {
             PuzzleSolvedButton(navController)
-            Text("You've unlocked a new Labyrinth Tile!")
+            Text(UNLOCK)
 
             eightTilePuzzleInstance!!.isSolved = true
             var solvedPuzzle = Eight(eightTilePuzzleInstance!!.id, eightPuzzle!!.grid, true)

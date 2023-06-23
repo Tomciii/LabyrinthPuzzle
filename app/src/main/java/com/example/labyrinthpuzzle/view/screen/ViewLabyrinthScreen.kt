@@ -76,7 +76,10 @@ fun LabyrinthGrid(labyrinthTiles: List<LabyrinthTile?>, rows: Int, columns: Int,
                         modifier = Modifier
                             .weight(1f)
                             .aspectRatio(1f)
-                            .background(if (tile?.isUnlocked == true) Green100 else Purple150)
+                            .background(
+                                if (tile?.isUnlocked == true && ((tile!!.id == 18 || tile!!.id == 14 || tile!!.id == 15))) Yellow
+                                else if (tile?.isUnlocked == true) Green100
+                                else Purple150)
                             .padding(2.dp)
                             .border(width = 2.dp, Color.Black),
                         contentAlignment = Alignment.Center

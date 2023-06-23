@@ -52,10 +52,4 @@ class LabyrinthViewModel(private val repository: LabyrinthRepository): ViewModel
     fun getAllLabyrinthTiles(): List<LabyrinthTile?> {
         return repository.getAllTiles()
     }
-
-    /* fun loadLabyrinthTileById(id: Int) {
-        val tile = repository.getLabyrinthTileById(id)
-        labyrinthTile.value = tile
-    } */
-    companion object
 }

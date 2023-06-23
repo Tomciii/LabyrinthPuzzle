@@ -1,6 +1,5 @@
 package com.example.labyrinthpuzzle.view.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold

@@ -196,7 +196,7 @@ fun MemoryPuzzle(
 
         if (viewModel.isPuzzleInCorrectOrder(solvedArray.toTypedArray())) {
             PuzzleSolvedButton(navController)
-            Text("You've unlocked a new Labyrinth Tile!")
+            Text(UNLOCK)
 
             memoryPuzzleInstance!!.isSolved = true
             var solvedPuzzle = Memory(memoryPuzzleInstance!!.id, memoryPuzzle!!.grid, true)
