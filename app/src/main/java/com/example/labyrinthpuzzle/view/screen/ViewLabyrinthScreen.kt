@@ -3,8 +3,8 @@ package com.example.labyrinthpuzzle.view.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -19,8 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.labyrinthpuzzle.model.entity.LabyrinthTile
-import com.example.labyrinthpuzzle.view.theme.Purple100
-import com.example.labyrinthpuzzle.view.theme.VIEW_LABYRINTH
+import com.example.labyrinthpuzzle.view.theme.*
 import com.example.labyrinthpuzzle.view.widgets.SimpleTopAppBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,20 +27,9 @@ import kotlinx.coroutines.withContext
 @Composable
 fun ViewLabyrinthScreen(
     navController: NavController = rememberNavController(),
-    labyrinthTileID: String? = "2"
 ){
     val viewModel: LabyrinthViewModel =
         viewModel(factory = InjectorUtils.provideLabyrinthViewModel(LocalContext.current))
-
-    val updateLoadedTiles = rememberUpdatedState(labyrinthTileID)
-
-    var labyrinthTile by remember { mutableStateOf<List<LabyrinthTile?>>(listOf()) }
-
-    LaunchedEffect(updateLoadedTiles.value) {
-        withContext(Dispatchers.IO) {
-            labyrinthTile = viewModel.getAllLabyrinthTiles()
-        }
-    }
 
 
     val rows = 7;
@@ -54,24 +42,58 @@ fun ViewLabyrinthScreen(
                 androidx.compose.material.Text(text = VIEW_LABYRINTH)
             }
 
-            LazyVerticalGrid(
-                modifier = Modifier
-                    .padding(5.dp),
-                columns = GridCells.Fixed(columns),
-                content = {
-                    items(35) { i ->
-                        Box(
-                            modifier = Modifier
-                                .aspectRatio(1f)
-                                .background(Color.Green)
-                                .padding(2.dp)
-                                .border(width = 2.dp, Color.Black),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = "Tile $i")
-                        }
+            var labyrinthTiles by remember { mutableStateOf<List<LabyrinthTile?>>(listOf()) }
+
+            LaunchedEffect(Unit) {
+                withContext(Dispatchers.IO) {
+                    val updatedLabyrinthTiles = viewModel.getAllLabyrinthTiles()
+                    withContext(Dispatchers.Main) {
+                        labyrinthTiles = updatedLabyrinthTiles
                     }
-                })
+                }
+            }
+
+            LabyrinthGrid(
+                labyrinthTiles = labyrinthTiles,
+                columns = columns,
+                rows = rows,
+                navController = navController
+            )
+        }
+    }
+}
+
+@Composable
+fun LabyrinthGrid(labyrinthTiles: List<LabyrinthTile?>, rows: Int, columns: Int, navController: NavController) {
+
+    Column(modifier = Modifier.padding(5.dp)) {
+        repeat(rows) { row ->
+            Row(Modifier.fillMaxWidth()) {
+                repeat(columns) { column ->
+                    val tile = labyrinthTiles.find { it?.xCoordinate == column && it?.yCoordinate == rows - 1 - row }
+
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .aspectRatio(1f)
+                            .background(if (tile?.isUnlocked == true) Green100 else Purple150)
+                            .padding(2.dp)
+                            .border(width = 2.dp, Color.Black),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        if (tile?.isUnlocked == true)
+                            Button(
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                            modifier = Modifier.fillMaxSize(),
+                            onClick = { navController.navigate(Screen.LabyrinthTileScreen.withId((tile.id).toString())) },
+                        ) {
+                            Text(text = "${tile.id}")
+                        }
+
+                        else Text(" ")
+                    }
+                }
+            }
         }
     }
 }
