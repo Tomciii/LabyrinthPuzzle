@@ -1,17 +1,19 @@
 package com.example.labyrinthpuzzle.screen
 
 
-import androidx.compose.foundation.layout.Arrangement
+import android.content.Context
+import android.media.MediaPlayer
 import com.example.labyrinthpuzzle.view.theme.SETTINGS
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -23,6 +25,7 @@ import com.example.labyrinthpuzzle.viewModels.LabyrinthViewModel
 import com.example.labyrinthpuzzle.viewModels.MemoryPuzzleViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import com.example.labyrinthpuzzle.R
 @Composable
 fun SettingsScreen(navController: NavController = rememberNavController()){
 
@@ -36,6 +39,8 @@ fun SettingsScreen(navController: NavController = rememberNavController()){
         viewModel(factory = InjectorUtils.provideLabyrinthViewModel(LocalContext.current))
 
     val coroutineScope = rememberCoroutineScope()
+
+    val context = LocalContext.current
 
     Surface(modifier = Modifier.fillMaxSize(), color = Purple100) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -54,6 +59,14 @@ fun SettingsScreen(navController: NavController = rememberNavController()){
             }){
                 Text(text = "Reset Progress")
             }
+
+            Text("Audio Settings")
+
+            Button(
+                onClick = { startMusic(context) }
+            ) {
+                Text(text = "Play Music")
+            }
         }
     }
 }
@@ -69,3 +82,11 @@ fun SettingsScreen(navController: NavController = rememberNavController()){
              memoryPuzzleViewModel.reset()
          }
  }
+
+private var mediaPlayer: MediaPlayer? = null
+
+private fun startMusic(context: Context) {
+    mediaPlayer = MediaPlayer.create(context, R.raw.music)
+    mediaPlayer?.isLooping = true
+    mediaPlayer?.start()
+}
