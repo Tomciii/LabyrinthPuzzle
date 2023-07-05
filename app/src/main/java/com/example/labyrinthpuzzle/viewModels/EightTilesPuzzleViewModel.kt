@@ -1,15 +1,18 @@
 package com.example.labyrinthpuzzle.viewModels
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.labyrinthpuzzle.model.entity.Eight
 import com.example.labyrinthpuzzle.model.repository.EightTilePuzzleRepository
 
 
 class EightTilesPuzzleViewModel(private val repository: EightTilePuzzleRepository) : ViewModel() {
-    var eightPuzzle = MutableLiveData<Eight>()
+
     fun getEightTilePuzzleById(puzzleId: String) : Eight? {
         return repository.getEightTilePuzzlebyId(puzzleId.toInt())
+    }
+
+    suspend fun reset(){
+        return repository.reset()
     }
 
     fun convertListTo2DArray(list: List<String>): Array<Array<Int?>> {

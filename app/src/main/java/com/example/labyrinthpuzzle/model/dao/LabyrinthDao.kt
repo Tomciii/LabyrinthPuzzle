@@ -22,6 +22,9 @@ interface LabyrinthDao {
     @Query("SELECT * FROM labyrinthtile where id=:id")
     fun getLabyrinthById(id: Int): LabyrinthTile
 
+    @Query("UPDATE labyrinthtile SET isUnlocked = 0 WHERE id not in (1)")
+    suspend fun reset()
+
     @Query("SELECT * FROM labyrinthtile")
     fun getAllTiles(): List<LabyrinthTile>
 

@@ -21,4 +21,7 @@ interface EightTilePuzzleDao {
     @Query("SELECT isSolved FROM eight where id=:id")
     fun isSolved(id: Int): Boolean
 
+    @Query("UPDATE eight SET isSolved = 0")
+    suspend fun reset()
+
 }

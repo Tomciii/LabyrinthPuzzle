@@ -1,5 +1,7 @@
 package com.example.labyrinthpuzzle.view.navigation
 
+import android.content.Context
+import android.content.res.Resources
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,7 +15,7 @@ import com.example.labyrinthpuzzle.view.screen.Screen
 import com.example.labyrinthpuzzle.screen.SettingsScreen
 import com.example.labyrinthpuzzle.view.screen.*
 @Composable
-fun Navigation() {
+fun Navigation(resources: Resources, context: Context) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {

@@ -8,5 +8,6 @@ class EightTilePuzzleRepository(private val dao: EightTilePuzzleDao) {
     suspend fun update(eightPuzzle: Eight) = dao.update(eightPuzzle)
     fun getEightTilePuzzlebyId(id: Int) = dao.getEightTilePuzzleById(id)
 
+    suspend fun reset() = dao.reset()
     fun isSolved(id: Int) = dao.isSolved(id)
 }

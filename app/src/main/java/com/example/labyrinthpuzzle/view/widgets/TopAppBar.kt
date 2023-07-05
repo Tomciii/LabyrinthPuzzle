@@ -54,7 +54,7 @@ fun SimpleTopAppBar(
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Arrow back",
-                modifier = Modifier.clickable { navController.popBackStack() }
+                modifier = Modifier.clickable { navController.navigate(Screen.HomeScreen.route) }
             )
         },
         actions = {

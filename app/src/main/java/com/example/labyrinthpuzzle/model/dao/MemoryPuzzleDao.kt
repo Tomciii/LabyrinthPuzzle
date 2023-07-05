@@ -25,4 +25,7 @@ interface MemoryPuzzleDao {
     @Query("UPDATE memory SET isSolved = 1 where id=:id")
     fun updateToSolved(id: Int)
 
+    @Query("UPDATE memory SET isSolved = 0")
+    suspend fun reset()
+
 }

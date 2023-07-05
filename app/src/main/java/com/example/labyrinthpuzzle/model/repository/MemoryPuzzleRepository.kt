@@ -10,5 +10,7 @@ class MemoryPuzzleRepository(private val dao: MemoryPuzzleDao) {
     fun getMemoryPuzzlebyId(id: Int) = dao.getMemoryPuzzleById(id)
 
     fun isSolved(id: Int) = dao.isSolved(id)
+
+    suspend fun reset() = dao.reset()
     fun updateToSolved(id: Int) = dao.updateToSolved(id)
 }
