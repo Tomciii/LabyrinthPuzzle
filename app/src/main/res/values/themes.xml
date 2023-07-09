@@ -3,5 +3,10 @@
 
     <style name="Theme.LabyrinthPuzzle" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Theme.DarkMode" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/purple_700</item>
     </style>
 </resources>

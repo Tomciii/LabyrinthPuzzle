@@ -65,7 +65,7 @@ fun SettingsScreen(navController: NavController = rememberNavController()){
             Button(
                 onClick = { startMusic(context) }
             ) {
-                Text(text = "Play Music")
+                Text(text = "Music")
             }
         }
     }
@@ -86,7 +86,12 @@ fun SettingsScreen(navController: NavController = rememberNavController()){
 private var mediaPlayer: MediaPlayer? = null
 
 private fun startMusic(context: Context) {
-    mediaPlayer = MediaPlayer.create(context, R.raw.music)
-    mediaPlayer?.isLooping = true
-    mediaPlayer?.start()
+    if (mediaPlayer == null){
+        mediaPlayer = MediaPlayer.create(context, R.raw.music)
+        mediaPlayer?.isLooping = true
+        mediaPlayer?.start()
+    } else {
+        mediaPlayer?.stop()
+        mediaPlayer = null
+    }
 }
