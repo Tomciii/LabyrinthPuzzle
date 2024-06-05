@@ -1,5 +1,5 @@
 # LabyrinthPuzzle
-A mobile app game created with Kotlin for FH Campus Wien MAD &amp; WFP
+A mobile app game created with Kotlin
 
 Preferred Emulator we work with:
 Pixel XL API 30
